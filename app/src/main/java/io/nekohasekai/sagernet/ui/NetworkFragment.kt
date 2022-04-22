@@ -42,9 +42,6 @@ class NetworkFragment : NamedFragment(R.layout.layout_network) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = LayoutNetworkBinding.bind(view)
-        binding.stunTest.setOnClickListener {
-            startActivity(Intent(requireContext(), StunActivity::class.java))
-        }
 
         //Markwon.create(requireContext())
         //    .setMarkdown(binding.wrapLicense, getString(R.string.warp_license))
