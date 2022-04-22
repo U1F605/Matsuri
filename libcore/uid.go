@@ -27,15 +27,11 @@ func SetUidDumper(dumper UidDumper, procfs bool) {
 }
 
 func dumpUid(source net.Destination, destination net.Destination) (int32, error) {
-	if useProcfs || uidDumper == nil {
-		return querySocketUidFromProcFs(source, destination), nil
+	var ipProto int32
+	if destination.Network == net.Network_TCP {
+		ipProto = syscall.IPPROTO_TCP
 	} else {
-		var ipProto int32
-		if destination.Network == net.Network_TCP {
-			ipProto = syscall.IPPROTO_TCP
-		} else {
-			ipProto = syscall.IPPROTO_UDP
-		}
-		return uidDumper.DumpUid(ipProto, source.Address.IP().String(), int32(source.Port), destination.Address.IP().String(), int32(destination.Port))
+		ipProto = syscall.IPPROTO_UDP
 	}
+	return uidDumper.DumpUid(ipProto, source.Address.IP().String(), int32(source.Port), destination.Address.IP().String(), int32(destination.Port))
 }
