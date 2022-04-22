@@ -1,4 +1,4 @@
-# Matsuri (茉莉) for Android
+# vmessocket for Android
 
 <img align="right" style="width: 20%" src="https://avatars.githubusercontent.com/u/95122236"/>
 
@@ -14,38 +14,11 @@
 
 A proxy toolchain for Android, written in Kotlin.
 
-## 喵 Nya
+## Notice
 
 这是 SagerNet 的一个分支，部分功能不同，改进了部分情况下的体验。支持高级插件。
 
 This is a fork of SagerNet with different features and improved experience in some situations. With "advanced plugin" support.
-
-## 更改记录和发布频道 Changelog and Telegram channel
-
-https://t.me/Matsuridayo
-
-## 文档 Documents
-
-https://matsuridayo.github.io
-
-## 代理 Proxy
-
-* SOCKS (4/4a/5)
-* HTTP(S)
-* SSH
-* Shadowsocks
-* ShadowsocksR
-* VMess
-* Trojan
-* Trojan-Go ( trojan-go-plugin )
-* NaïveProxy ( naive-plugin )
-* Hysteria ( hysteria-plugin )
-* WireGuard ( wireguard-plugin )
-
-### ROOT required
-
-* Ping Tunnel ( pingtunnel-plugin )
-* Hysteria faketcp ( hysteria-plugin )
 
 ### 订阅 Subscription
 
