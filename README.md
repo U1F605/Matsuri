@@ -10,7 +10,7 @@ A proxy toolchain for Android, written in Kotlin.
 
 这是 SagerNet 的一个分支，部分功能不同，改进了部分情况下的体验。
 
-This is a fork of SagerNet with different features and improved experience in some situations. With "advanced plugin" support.
+This is a fork of SagerNet with different features and improved experience in some situations.
 
 ### 订阅 Subscription
 
