@@ -52,13 +52,6 @@ class ProxyInstance(profile: ProxyEntity, val service: BaseService.Interface) : 
     override fun launch() {
         super.launch()
 
-        if (config.observatoryTags.isNotEmpty()) {
-            v2rayPoint.setStatusUpdateListener(::sendObservatoryResult)
-            observatoryJob = runOnDefaultDispatcher {
-                sendInitStatuses()
-            }
-        }
-
         /* if (BuildConfig.DEBUG && DataStore.enableLog) {
              externalInstances[9999] = DebugInstance().apply {
                  launch()
@@ -77,18 +70,6 @@ class ProxyInstance(profile: ProxyEntity, val service: BaseService.Interface) : 
                     statsOutbounds.containsKey(id) -> statsOutbounds[id]!!.proxyEntity
                     else -> SagerDatabase.proxyDao.getById(id)
                 } ?: continue
-
-                if (profile.status > 0) v2rayPoint.updateStatus(
-                    OutboundStatus.newBuilder()
-                        .setOutboundTag(observatoryTag)
-                        .setAlive(profile.status == 1)
-                        .setDelay(profile.ping.toLong())
-                        .setLastErrorReason(profile.error ?: "")
-                        .setLastTryTime(time)
-                        .setLastSeenTime(time)
-                        .build()
-                        .toByteArray()
-                )
             }
         }
     }
