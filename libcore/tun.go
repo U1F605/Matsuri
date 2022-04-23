@@ -40,7 +40,6 @@ type Tun2ray struct {
 
 	dumpUid      bool
 	trafficStats bool
-	appStats     map[uint16]*appStats
 	pcap         bool
 }
 
@@ -90,10 +89,6 @@ func NewTun2ray(config *TunConfig) (*Tun2ray, error) {
 	// setup resolver first
 	androidUnderlyingResolver.sekaiResolver = config.LocalResolver
 	protect.FdProtector = config.FdProtector
-
-	if config.TrafficStats {
-		t.appStats = map[uint16]*appStats{}
-	}
 	var err error
 	if config.Implementation == 0 { // gvisor
 		var pcapFile *os.File
@@ -202,11 +197,6 @@ func (t *Tun2ray) NewConnection(source v2rayNet.Destination, destination v2rayNe
 		stats := t.appStats[uid]
 		if stats == nil {
 			t.access.Lock()
-			stats = t.appStats[uid]
-			if stats == nil {
-				stats = &appStats{}
-				t.appStats[uid] = stats
-			}
 			t.access.Unlock()
 		}
 		atomic.AddInt32(&stats.tcpConn, 1)
@@ -217,7 +207,6 @@ func (t *Tun2ray) NewConnection(source v2rayNet.Destination, destination v2rayNe
 				atomic.StoreInt64(&stats.deactivateAt, time.Now().Unix())
 			}
 		}()
-		conn = &statsConn{conn, &stats.uplink, &stats.downlink}
 	}
 
 	//这个 DispatchLink 是 outbound, link reader 是上行流量
@@ -411,11 +400,6 @@ func (t *Tun2ray) NewPacket(source v2rayNet.Destination, destination v2rayNet.De
 		stats := t.appStats[uid]
 		if stats == nil {
 			t.access.Lock()
-			stats = t.appStats[uid]
-			if stats == nil {
-				stats = &appStats{}
-				t.appStats[uid] = stats
-			}
 			t.access.Unlock()
 		}
 		atomic.AddInt32(&stats.udpConn, 1)
@@ -426,10 +410,6 @@ func (t *Tun2ray) NewPacket(source v2rayNet.Destination, destination v2rayNet.De
 				atomic.StoreInt64(&stats.deactivateAt, time.Now().Unix())
 			}
 		}()
-		conn.stats = &myStats{
-			uplink:   &stats.uplink,
-			downlink: &stats.downlink,
-		}
 	}
 
 	// udp conn ok
