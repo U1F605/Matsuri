@@ -75,11 +75,6 @@ func (instance *V2RayInstance) LoadConfig(content string) error {
 	instance.dnsClient = c.GetFeature(dns.ClientType()).(dns.Client)
 
 	instance.setupDialer()
-
-	o := c.GetFeature(extension.ObservatoryType())
-	if o != nil {
-		instance.observatory = o.(*observatory.Observer)
-	}
 	return nil
 }
 
