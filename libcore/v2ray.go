@@ -24,7 +24,6 @@ import (
 	dns_feature "github.com/v2fly/v2ray-core/v5/features/dns"
 	v2rayDns "github.com/v2fly/v2ray-core/v5/features/dns"
 	"github.com/v2fly/v2ray-core/v5/features/dns/localdns"
-	"github.com/v2fly/v2ray-core/v5/features/extension"
 	"github.com/v2fly/v2ray-core/v5/features/routing"
 	"github.com/v2fly/v2ray-core/v5/features/stats"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/serial"
