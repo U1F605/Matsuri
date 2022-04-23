@@ -194,11 +194,6 @@ func (t *Tun2ray) NewConnection(source v2rayNet.Destination, destination v2rayNe
 	}
 
 	if t.trafficStats && !self && !isDns {
-		stats := t.appStats[uid]
-		if stats == nil {
-			t.access.Lock()
-			t.access.Unlock()
-		}
 		atomic.AddInt32(&stats.tcpConn, 1)
 		atomic.AddUint32(&stats.tcpConnTotal, 1)
 		atomic.StoreInt64(&stats.deactivateAt, 0)
@@ -397,11 +392,6 @@ func (t *Tun2ray) NewPacket(source v2rayNet.Destination, destination v2rayNet.De
 	}
 
 	if t.trafficStats && !self && !isDns {
-		stats := t.appStats[uid]
-		if stats == nil {
-			t.access.Lock()
-			t.access.Unlock()
-		}
 		atomic.AddInt32(&stats.udpConn, 1)
 		atomic.AddUint32(&stats.udpConnTotal, 1)
 		atomic.StoreInt64(&stats.deactivateAt, 0)
