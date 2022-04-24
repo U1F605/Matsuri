@@ -88,13 +88,4 @@ func InitCore(internalAssets string, externalAssets string, prefix string, useOf
 	}
 
 	device.AutoGoMaxProcs()
-
-	// CA for other programs
-	go func() {
-		defer initCoreDefer()
-		f, err := os.OpenFile(filepath.Join(internalAssets, "ca.pem"), os.O_CREATE|os.O_RDWR, 0644)
-		if err != nil {
-			forceLog("open ca.pem: " + err.Error())
-		}
-	}()
 }
