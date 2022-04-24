@@ -3,7 +3,6 @@ package libcore
 import (
 	"crypto/x509"
 	"fmt"
-	"io/ioutil"
 	"libcore/device"
 	"os"
 	"path/filepath"
