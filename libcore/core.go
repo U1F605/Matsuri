@@ -75,7 +75,6 @@ func InitCore(internalAssets string, externalAssets string, prefix string, useOf
 		// Setup CA Certs
 		x509.SystemCertPool()
 		roots := x509.NewCertPool()
-		roots.AppendCertsFromPEM([]byte(mozillaCA))
 		systemRoots = roots
 
 		// Extract assets
@@ -96,13 +95,6 @@ func InitCore(internalAssets string, externalAssets string, prefix string, useOf
 		f, err := os.OpenFile(filepath.Join(internalAssets, "ca.pem"), os.O_CREATE|os.O_RDWR, 0644)
 		if err != nil {
 			forceLog("open ca.pem: " + err.Error())
-		} else {
-			if b, _ := ioutil.ReadAll(f); b == nil || string(b) != mozillaCA {
-				f.Truncate(0)
-				f.Seek(0, 0)
-				f.Write([]byte(mozillaCA))
-			}
-			f.Close()
 		}
 	}()
 }
