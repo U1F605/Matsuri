@@ -9,8 +9,8 @@ go get -v -d
 
 # Install gomobile
 if [ ! -f "$GOPATH/bin/gomobile" ]; then
-    go install -v golang.org/x/mobile/cmd/gomobile@latest
-    go install -v github.com/sagernet/gomobile/cmd/gobind@v0.0.0-20210905032500-701a995ff844
+    go install -v golang.org/x/mobile/cmd/gomobile
+    go install -v golang.org/x/mobile/cmd/gobind
 fi
 
 gomobile init
