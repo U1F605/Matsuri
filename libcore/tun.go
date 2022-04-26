@@ -4,7 +4,6 @@ import (
 	"context"
 	"libcore/comm"
 	"libcore/device"
-	"libcore/protect"
 	"libcore/tun"
 	"libcore/tun/gvisor"
 	"libcore/tun/system"
