@@ -129,7 +129,6 @@ func (t *Tun2ray) Close() {
 	defer t.access.Unlock()
 
 	androidUnderlyingResolver.sekaiResolver = nil
-	protect.FdProtector = nil
 
 	t.dev.Stop()
 }
