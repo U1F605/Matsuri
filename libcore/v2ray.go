@@ -40,7 +40,6 @@ type V2RayInstance struct {
 	started      bool
 	core         *core.Instance
 	statsManager stats.Manager
-	observatory  *observatory.Observer
 	dispatcher   *dispatcher.DefaultDispatcher
 	dnsClient    dns.Client
 }
