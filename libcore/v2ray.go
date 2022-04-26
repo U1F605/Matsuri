@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"libcore/doh"
 	"libcore/protect"
 	"log"
 	gonet "net"
