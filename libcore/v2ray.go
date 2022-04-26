@@ -17,7 +17,6 @@ import (
 
 	core "github.com/v2fly/v2ray-core/v5"
 	"github.com/v2fly/v2ray-core/v5/app/dispatcher"
-	"github.com/v2fly/v2ray-core/v5/app/observatory"
 	"github.com/v2fly/v2ray-core/v5/common/buf"
 	"github.com/v2fly/v2ray-core/v5/common/net"
 	"github.com/v2fly/v2ray-core/v5/features/dns"
@@ -40,7 +39,6 @@ type V2RayInstance struct {
 	started      bool
 	core         *core.Instance
 	statsManager stats.Manager
-	observatory  *observatory.Observer
 	dispatcher   *dispatcher.DefaultDispatcher
 	dnsClient    dns.Client
 }
