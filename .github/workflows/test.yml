@@ -9,5 +9,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: GO
+        uses: actions/setup-go@v3
       - name: test
         run: cd libcore && rm -rf go.mod && rm -rf go.sum
