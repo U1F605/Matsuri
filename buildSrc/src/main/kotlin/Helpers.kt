@@ -344,16 +344,12 @@ fun Project.setupApp() {
         }
 
         splits.abi {
-            if (requireFlavor().startsWith("Fdroid")) {
-                isEnable = false
-            } else {
-                isEnable = true
-                isUniversalApk = false
+            isEnable = true
+            isUniversalApk = false
 
-                if (targetAbi.isNotBlank()) {
-                    reset()
-                    include(targetAbi)
-                }
+            if (targetAbi.isNotBlank()) {
+                reset()
+                include(targetAbi)
             }
         }
 
