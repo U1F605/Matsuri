@@ -127,18 +127,7 @@ func (dialer ProtectedDialer) dial(ctx context.Context, source v2rayNet.Address,
 	}
 	defer file.Close() // old fd will closed
 
-	switch destination.Network {
-	case v2rayNet.Network_UDP:
-		pc, err := net.FilePacketConn(file)
-		if err == nil {
-			destAddr, err := net.ResolveUDPAddr("udp", destination.NetAddr())
-			if err != nil {
-				return nil, err
-			}
-		}
-	default:
-		conn, err = net.FileConn(file)
-	}
+	conn, err = net.FileConn(file)
 
 	if err != nil {
 		return nil, err
