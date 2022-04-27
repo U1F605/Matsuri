@@ -1,0 +1,13 @@
+name: test
+
+on:
+  push:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: test
+        run: cd libcore && rm -rf go.mod && rm -rf go.sum
