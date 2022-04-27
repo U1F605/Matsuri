@@ -135,10 +135,6 @@ func (dialer ProtectedDialer) dial(ctx context.Context, source v2rayNet.Address,
 			if err != nil {
 				return nil, err
 			}
-			conn = &nekoutils.PacketConnWrapper{
-				PacketConn: pc,
-				Dest:       destAddr,
-			}
 		}
 	default:
 		conn, err = net.FileConn(file)
