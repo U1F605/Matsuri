@@ -12,4 +12,4 @@ jobs:
       - name: GO
         uses: actions/setup-go@v3
       - name: test
-        run: cd libcore && rm -rf go.mod && rm -rf go.sum && go mod init libcore && go mod tidy
+        run: cd libcore && go mod tidy
