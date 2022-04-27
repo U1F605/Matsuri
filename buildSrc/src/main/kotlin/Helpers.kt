@@ -356,7 +356,6 @@ fun Project.setupApp() {
         flavorDimensions("vendor")
         productFlavors {
             create("oss")
-            create("fdroid")
             create("play") {
                 versionCode = verCode - 4
             }
