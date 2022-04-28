@@ -13,7 +13,6 @@ import (
 	"github.com/v2fly/v2ray-core/v5/common/buf"
 	v2rayNet "github.com/v2fly/v2ray-core/v5/common/net"
 	"github.com/v2fly/v2ray-core/v5/features/dns"
-	"github.com/v2fly/v2ray-core/v5/nekoutils"
 	"github.com/v2fly/v2ray-core/v5/transport/internet"
 	"golang.org/x/sys/unix"
 )
@@ -128,22 +127,7 @@ func (dialer ProtectedDialer) dial(ctx context.Context, source v2rayNet.Address,
 	}
 	defer file.Close() // old fd will closed
 
-	switch destination.Network {
-	case v2rayNet.Network_UDP:
-		pc, err := net.FilePacketConn(file)
-		if err == nil {
-			destAddr, err := net.ResolveUDPAddr("udp", destination.NetAddr())
-			if err != nil {
-				return nil, err
-			}
-			conn = &nekoutils.PacketConnWrapper{
-				PacketConn: pc,
-				Dest:       destAddr,
-			}
-		}
-	default:
-		conn, err = net.FileConn(file)
-	}
+	conn, err = net.FileConn(file)
 
 	if err != nil {
 		return nil, err
