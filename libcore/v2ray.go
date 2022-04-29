@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"libcore/doh"
 	"libcore/protect"
 	"log"
 	gonet "net"
@@ -260,9 +259,6 @@ func ListV2rayConnections() string {
 	}
 
 	addToList := func(list interface{}) {}
-
-	addToList(rangeMap(&nekoutils.ConnectionPool_V2Ray.Map))
-	addToList(rangeMap(&nekoutils.ConnectionLog_V2Ray.Map))
 
 	b, _ := json.Marshal(&list2)
 	return string(b)
