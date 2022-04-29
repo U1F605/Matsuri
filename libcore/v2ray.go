@@ -227,36 +227,10 @@ func setupResolvers() {
 // Neko connections
 
 func ResetConnections(system bool) {
-	if system {
-		nekoutils.ConnectionPool_System.ResetConnections(true)
-	} else {
-		nekoutils.ConnectionPool_V2Ray.ResetConnections(false)
-		nekoutils.ConnectionLog_V2Ray.ResetConnections(false)
-	}
 }
 
 func ListV2rayConnections() string {
 	list2 := make([]interface{}, 0)
-
-	rangeMap := func(m *sync.Map) []interface{} {
-		vs := make(map[uint32]interface{}, 0)
-		ks := make([]uint32, 0)
-
-		m.Range(func(key interface{}, value interface{}) bool {
-			k := key.(uint32)
-			vs[k] = value
-			ks = append(ks, k)
-			return true
-		})
-
-		sort.Slice(ks, func(i, j int) bool { return ks[i] > ks[j] })
-
-		ret := make([]interface{}, 0)
-		for _, id := range ks {
-			ret = append(ret, vs[id])
-		}
-		return ret
-	}
 
 	b, _ := json.Marshal(&list2)
 	return string(b)
