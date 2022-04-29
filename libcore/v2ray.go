@@ -258,20 +258,9 @@ func ListV2rayConnections() string {
 		return ret
 	}
 
-	addToList := func(list interface{}) {}
-
 	b, _ := json.Marshal(&list2)
 	return string(b)
 }
 
 func CloseV2rayConnection(id uint32) {
-	m := &nekoutils.ConnectionPool_V2Ray.Map
-
-	m.Range(func(key interface{}, value interface{}) bool {
-		if c, ok := key.(*nekoutils.ManagedV2rayConn); ok && c.ID() == id {
-			c.Close()
-			return false
-		}
-		return true
-	})
 }
