@@ -41,7 +41,6 @@ func extractV2RayAssets(useOfficial BoolFunc) {
 
 	extract(geoipDat)
 	extract(geositeDat)
-	extract(browserForwarder)
 }
 
 // 这里解压的是 apk 里面的
