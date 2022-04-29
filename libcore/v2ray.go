@@ -274,30 +274,7 @@ func ListV2rayConnections() string {
 		return ret
 	}
 
-	addToList := func(list interface{}) {
-		for _, c := range list.([]interface{}) {
-			if c2, ok := c.(*nekoutils.ManagedV2rayConn); ok {
-				if c2.Tag == "dns-out" || c2.Tag == "direct" {
-					continue
-				}
-				list2 = append(list2, &struct {
-					ID    uint32
-					Dest  string
-					Start int64
-					End   int64
-					Uid   uint32
-					Tag   string
-				}{
-					ID:    c2.ID(),
-					Dest:  c2.Dest.String(),
-					Start: c2.StartTime,
-					End:   c2.EndTime,
-					Uid:   c2.Inbound.Uid,
-					Tag:   c2.Tag,
-				})
-			}
-		}
-	}
+	addToList := func(list interface{}) {}
 
 	addToList(rangeMap(&nekoutils.ConnectionPool_V2Ray.Map))
 	addToList(rangeMap(&nekoutils.ConnectionLog_V2Ray.Map))
