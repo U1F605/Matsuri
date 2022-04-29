@@ -201,21 +201,6 @@ func (v2ray *V2RayInstance) setupDialer() {
 					return ips, nil
 				}
 
-				if nekoutils.In(tryDomains, domain) {
-					// first try A
-					_ips, err := doh.LookupManyDoH(domain, 1)
-					if err != nil {
-						// then try AAAA
-						_ips, err = doh.LookupManyDoH(domain, 28)
-						if err != nil {
-							return nil, err
-						}
-					}
-					ips := _ips.([]net.IP)
-					staticHosts[domain] = ips
-					return ips, nil
-				}
-
 				return dc.LookupIP(&dns.MatsuriDomainStringEx{
 					Domain:     domain,
 					OptNetwork: "ip",
