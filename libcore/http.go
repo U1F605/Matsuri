@@ -21,7 +21,6 @@ import (
 
 	"github.com/Dreamacro/clash/transport/socks5"
 	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/nekoutils"
 )
 
 type HTTPClient interface {
@@ -74,16 +73,10 @@ func NewHttpClient() HTTPClient {
 
 func (c *httpClient) ModernTLS() {
 	c.tls.MinVersion = tls.VersionTLS12
-	c.tls.CipherSuites = nekoutils.Map(tls.CipherSuites(), func(it *tls.CipherSuite) uint16 { return it.ID })
 }
 
 func (c *httpClient) RestrictedTLS() {
 	c.tls.MinVersion = tls.VersionTLS13
-	c.tls.CipherSuites = nekoutils.Map(nekoutils.Filter(tls.CipherSuites(), func(it *tls.CipherSuite) bool {
-		return nekoutils.Contains(it.SupportedVersions, uint16(tls.VersionTLS13))
-	}), func(it *tls.CipherSuite) uint16 {
-		return it.ID
-	})
 }
 
 func (c *httpClient) PinnedTLS12() {
