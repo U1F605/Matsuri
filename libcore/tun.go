@@ -94,6 +94,7 @@ func NewTun2ray(config *TunConfig) (*Tun2ray, error) {
 	}
 	var err error
 	if config.Implementation == 0 { // gvisor
+		var pcapFile *os.File
 		if config.PCap {
 			path := time.Now().UTC().String()
 			path = externalAssetsPath + "/pcap/" + path + ".pcap"
