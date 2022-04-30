@@ -108,8 +108,6 @@ func NewTun2ray(config *TunConfig) (*Tun2ray, error) {
 				return nil, newError("unable to create pcap file").Base(err)
 			}
 		}
-
-		t.dev, err = gvisor.New(config.FileDescriptor, config.MTU, t, gvisor.DefaultNIC, config.PCap, pcapFile, math.MaxUint32, config.IPv6Mode)
 	} else if config.Implementation == 1 { // SYSTEM
 		t.dev, err = system.New(config.FileDescriptor, config.MTU, t, config.IPv6Mode, config.ErrorHandler.HandleError)
 	} else if config.Implementation == 2 { // Tun2Socket
