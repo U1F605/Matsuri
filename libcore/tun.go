@@ -6,13 +6,9 @@ import (
 	"libcore/device"
 	"libcore/protect"
 	"libcore/tun"
-	"libcore/tun/gvisor"
-	"libcore/tun/system"
 	"libcore/tun/tun2socket"
-	"math"
 	"net"
 	"os"
-	"path/filepath"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -95,25 +91,7 @@ func NewTun2ray(config *TunConfig) (*Tun2ray, error) {
 		t.appStats = map[uint16]*appStats{}
 	}
 	var err error
-	if config.Implementation == 0 { // gvisor
-		var pcapFile *os.File
-		if config.PCap {
-			path := time.Now().UTC().String()
-			path = externalAssetsPath + "/pcap/" + path + ".pcap"
-			err = os.MkdirAll(filepath.Dir(path), 0755)
-			if err != nil {
-				return nil, newError("unable to create pcap dir").Base(err)
-			}
-			pcapFile, err = os.Create(path)
-			if err != nil {
-				return nil, newError("unable to create pcap file").Base(err)
-			}
-		}
-
-		t.dev, err = gvisor.New(config.FileDescriptor, config.MTU, t, gvisor.DefaultNIC, config.PCap, pcapFile, math.MaxUint32, config.IPv6Mode)
-	} else if config.Implementation == 1 { // SYSTEM
-		t.dev, err = system.New(config.FileDescriptor, config.MTU, t, config.IPv6Mode, config.ErrorHandler.HandleError)
-	} else if config.Implementation == 2 { // Tun2Socket
+	if config.Implementation == 2 { // Tun2Socket
 		t.dev, err = tun2socket.New(config.FileDescriptor, t)
 	} else {
 		err = newError("Not supported")
