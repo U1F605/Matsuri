@@ -84,7 +84,6 @@ func NewTun2ray(config *TunConfig) (*Tun2ray, error) {
 
 	// setup resolver first
 	androidUnderlyingResolver.sekaiResolver = config.LocalResolver
-	protect.FdProtector = config.FdProtector
 
 	if config.TrafficStats {
 		t.appStats = map[uint16]*appStats{}
@@ -107,7 +106,6 @@ func (t *Tun2ray) Close() {
 	defer t.access.Unlock()
 
 	androidUnderlyingResolver.sekaiResolver = nil
-	protect.FdProtector = nil
 
 	t.dev.Stop()
 }
