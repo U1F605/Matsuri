@@ -303,9 +303,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                         snackbar(R.string.copy_success).show()
                     }
                 }.show()
-                if (tunImplementation.value != "${TunImplementation.GVISOR}") {
-                    tunImplementation.value = "${TunImplementation.GVISOR}"
-                }
             } else needReload()
             true
         }
