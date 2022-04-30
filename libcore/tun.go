@@ -91,9 +91,7 @@ func NewTun2ray(config *TunConfig) (*Tun2ray, error) {
 		t.appStats = map[uint16]*appStats{}
 	}
 	var err error
-	if config.Implementation == 1 { // SYSTEM
-		t.dev, err = system.New(config.FileDescriptor, config.MTU, t, config.IPv6Mode, config.ErrorHandler.HandleError)
-	} else if config.Implementation == 2 { // Tun2Socket
+	if config.Implementation == 2 { // Tun2Socket
 		t.dev, err = tun2socket.New(config.FileDescriptor, t)
 	} else {
 		err = newError("Not supported")
