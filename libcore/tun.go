@@ -6,7 +6,6 @@ import (
 	"libcore/device"
 	"libcore/protect"
 	"libcore/tun"
-	"libcore/tun/gvisor"
 	"libcore/tun/system"
 	"libcore/tun/tun2socket"
 	"math"
