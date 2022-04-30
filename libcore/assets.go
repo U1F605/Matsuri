@@ -16,7 +16,6 @@ import (
 const (
 	geoipDat         = "geoip.dat"
 	geositeDat       = "geosite.dat"
-	browserForwarder = "index.js"
 	geoipVersion     = "geoip.version.txt"
 	geositeVersion   = "geosite.version.txt"
 	coreVersion      = "core.version.txt"
@@ -42,7 +41,6 @@ func extractV2RayAssets(useOfficial BoolFunc) {
 
 	extract(geoipDat)
 	extract(geositeDat)
-	extract(browserForwarder)
 }
 
 // 这里解压的是 apk 里面的
@@ -57,9 +55,6 @@ func extractAssetName(name string, force bool, useOfficialAssets bool) error {
 		version = geoipVersion
 	case geositeDat:
 		version = geositeVersion
-	case browserForwarder:
-		version = coreVersion
-		replaceable = false
 	}
 
 	var dir string
