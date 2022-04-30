@@ -14,7 +14,7 @@ require (
 	github.com/v2fly/v2ray-core/v5 v5.0.3
 	go.uber.org/automaxprocs v1.5.1
 	golang.org/x/sys v0.0.0-20220429233432-b5fbb4746d32
-	gvisor.dev/gvisor v0.0.0-00010101000000-000000000000
+	gvisor.dev/gvisor v0.0.0
 )
 
 require (
