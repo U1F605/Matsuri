@@ -188,35 +188,11 @@ func (p *simpleSekaiWrapper) LookupIP(network, host string) (ret []net.IP, err e
 func (v2ray *V2RayInstance) setupDialer() {
 	setupResolvers()
 	dc = v2ray.dnsClient
-
-	// All lookup except dnsClient -> dc.LookupIP()
-	// and also set protectedDialer
-	if _, ok := dc.(v2rayDns.ClientWithIPOption); ok {
-		internet.UseAlternativeSystemDialer(&protect.ProtectedDialer{
-			Resolver: func(domain string) ([]net.IP, error) {
-				if ips, ok := staticHosts[domain]; ok && ips != nil {
-					return ips, nil
-				}
-
-				return dc.LookupIP(&dns.MatsuriDomainStringEx{
-					Domain:     domain,
-					OptNetwork: "ip",
-				})
-			},
-		})
-	}
 }
 
 func setupResolvers() {
 	// golang lookup -> androidResolver
 	gonet.DefaultResolver = androidResolver
-
-	// dnsClient lookup -> androidUnderlyingResolver.LookupIP()
-	internet.UseAlternativeSystemDNSDialer(&protect.ProtectedDialer{
-		Resolver: func(domain string) ([]net.IP, error) {
-			return androidUnderlyingResolver.LookupIP("ip", domain)
-		},
-	})
 
 	// "localhost" localDns lookup -> androidUnderlyingResolver.LookupIP()
 	localdns.SetLookupFunc(androidUnderlyingResolver.LookupIP)
