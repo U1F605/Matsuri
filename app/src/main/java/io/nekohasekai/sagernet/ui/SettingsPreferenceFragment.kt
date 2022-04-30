@@ -303,7 +303,8 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                         snackbar(R.string.copy_success).show()
                     }
                 }.show()
-            } else needReload()
+            } 
+            needReload()
             true
         }
 
