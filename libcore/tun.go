@@ -10,7 +10,6 @@ import (
 	"libcore/tun/tun2socket"
 	"net"
 	"os"
-	"path/filepath"
 	"sync"
 	"sync/atomic"
 	"time"
