@@ -6,7 +6,6 @@ import (
 	"libcore/device"
 	"libcore/protect"
 	"libcore/tun"
-	"libcore/tun/system"
 	"libcore/tun/tun2socket"
 	"net"
 	"os"
