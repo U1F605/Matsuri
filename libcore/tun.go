@@ -93,21 +93,7 @@ func NewTun2ray(config *TunConfig) (*Tun2ray, error) {
 		t.appStats = map[uint16]*appStats{}
 	}
 	var err error
-	if config.Implementation == 0 { // gvisor
-		var pcapFile *os.File
-		if config.PCap {
-			path := time.Now().UTC().String()
-			path = externalAssetsPath + "/pcap/" + path + ".pcap"
-			err = os.MkdirAll(filepath.Dir(path), 0755)
-			if err != nil {
-				return nil, newError("unable to create pcap dir").Base(err)
-			}
-			pcapFile, err = os.Create(path)
-			if err != nil {
-				return nil, newError("unable to create pcap file").Base(err)
-			}
-		}
-	} else if config.Implementation == 1 { // SYSTEM
+	if config.Implementation == 1 { // SYSTEM
 		t.dev, err = system.New(config.FileDescriptor, config.MTU, t, config.IPv6Mode, config.ErrorHandler.HandleError)
 	} else if config.Implementation == 2 { // Tun2Socket
 		t.dev, err = tun2socket.New(config.FileDescriptor, t)
