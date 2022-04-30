@@ -93,10 +93,6 @@ func (dialer ProtectedDialer) dial(ctx context.Context, source v2rayNet.Address,
 		return nil, newError("protect failed")
 	}
 
-	if sockopt != nil {
-		internet.ApplySockopt(sockopt, destination, uintptr(fd), ctx)
-	}
-
 	// SO_SNDTIMEO default is 75s
 	syscall.SetsockoptTimeval(fd, syscall.SOL_SOCKET, syscall.SO_SNDTIMEO, &syscall.Timeval{Sec: 10})
 
