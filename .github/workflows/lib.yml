@@ -17,6 +17,5 @@ jobs:
           go install -v golang.org/x/mobile/cmd/gomobile@latest
           go install -v golang.org/x/mobile/cmd/gobind@latest
           ./run lib core
-          cd libcore/
-          source .github/env.sh
-          gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
+          source ./libcore/.github/env.sh
+          gomobile bind -v -trimpath -ldflags='-s -w' ./libcore || exit 1
