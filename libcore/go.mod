@@ -2,6 +2,10 @@ module libcore
 
 go 1.18
 
+replace gvisor.dev/gvisor => github.com/sagernet/gvisor v0.0.0-20220213143053-df431bee78e3
+
+replace github.com/v2fly/v2ray-core/v5 v5.0.0 => ../../v2ray-core
+
 require (
 	github.com/Dreamacro/clash v1.10.0
 	github.com/miekg/dns v1.1.48
@@ -13,10 +17,6 @@ require (
 	go.uber.org/automaxprocs v1.5.1
 	golang.org/x/sys v0.0.0-20220429233432-b5fbb4746d32
 )
-
-replace gvisor.dev/gvisor => github.com/sagernet/gvisor v0.0.0-20220213143053-df431bee78e3
-
-replace github.com/v2fly/v2ray-core/v5 v5.0.0 => ../../v2ray-core
 
 require (
 	github.com/adrg/xdg v0.4.0 // indirect
@@ -44,7 +44,7 @@ require (
 	github.com/pires/go-proxyproto v0.6.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
-	github.com/seiflotfy/cuckoofilter v0.0.0-20220411075957-e3b120b3f5fb // indirect
+	github.com/seiflotfy/cuckoofilter v0.0.0-20220312154859-af7fbb8e765b // indirect
 	github.com/v2fly/BrowserBridge v0.0.0-20210430233438-0570fc1d7d08 // indirect
 	github.com/v2fly/ss-bloomring v0.0.0-20210312155135-28617310f63e // indirect
 	github.com/xtaci/smux v1.5.16 // indirect
