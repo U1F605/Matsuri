@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# For CI build, use downloaded golang
-export golang=$PWD/build/golang
-export GOPATH=$golang/gopath
-export GOROOT=$golang/go
-export PATH=$golang/go/bin:$GOPATH/bin:$PATH
-
 if [ -z "$ANDROID_HOME" ]; then
   if [ -d "$HOME/Android/Sdk" ]; then
     export ANDROID_HOME="$HOME/Android/Sdk"
