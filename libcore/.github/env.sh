@@ -23,17 +23,3 @@ fi
 
 export ANDROID_NDK_HOME=$_NDK
 export NDK=$_NDK
-
-if [ ! $(command -v go) ]; then
-  if [ -d /usr/lib/go ]; then
-    export PATH="$PATH:/usr/lib/go/bin"
-  elif [ /usr/lib/go-1.17 ]; then
-    export PATH="$PATH:/usr/lib/go-1.17/bin"
-  elif [ -d $HOME/.go ]; then
-    export PATH="$PATH:$HOME/.go/bin"
-  fi
-fi
-
-if [ $(command -v go) ]; then
-  export PATH="$PATH:$(go env GOPATH)/bin"
-fi
