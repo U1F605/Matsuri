@@ -15,5 +15,6 @@ jobs:
       - name: Setup Gomobile
         run: | 
           go install -v golang.org/x/mobile/cmd/gomobile@latest
+          go install -v golang.org/x/mobile/cmd/gobind@latest
           cd libcore/
           gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
