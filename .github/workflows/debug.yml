@@ -1,4 +1,5 @@
 name: Debug build
+name: libcore build
 
 on:
   push:
@@ -9,8 +10,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ^1.18
       - name: Native Build
-        run: ./run init action go && ./run lib core
+        run: | 
+          go install -v golang.org/x/mobile/cmd/gomobile@latest
+          go install -v golang.org/x/mobile/cmd/gobind@latest
+          ./run lib core
+          cd libcore/ && source .github/env.sh
+          gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
+          rm -r libcore-sources.jar
+          proj=../app/libs
+          mkdir -p $proj
+          cp -f libcore.aar $proj
+          echo ">> install $(realpath $proj)/libcore.aar"
       - name: Debug build
         env:
           BUILD_PLUGIN: none
