@@ -1,5 +1,4 @@
 name: Debug build
-name: libcore build
 
 on:
   push:
