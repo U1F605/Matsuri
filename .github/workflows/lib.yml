@@ -1,0 +1,21 @@
+name: libcore build
+
+on:
+  push:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ^1.18
+      - name: Native Build
+        run: | 
+          go install -v golang.org/x/mobile/cmd/gomobile@latest
+          go install -v golang.org/x/mobile/cmd/gobind@latest
+          ./run lib core
+          cd libcore/ && source .github/env.sh
+          gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
