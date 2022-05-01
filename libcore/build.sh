@@ -11,7 +11,7 @@ rm -rf $BUILD/android \
   $BUILD/javac-output \
   $BUILD/src
 
-gomobile bind -v -cache $(realpath build) -trimpath -ldflags='-s -w' . || exit 1
+gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
 rm -r libcore-sources.jar
 
 proj=../app/libs
