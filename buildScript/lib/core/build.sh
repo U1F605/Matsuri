@@ -4,6 +4,10 @@ source "buildScript/init/env.sh"
 export CGO_ENABLED=1
 export GO386=softfloat
 
+sed -i "s/buildDate .*/buildDate := \"`date +'%Y%m%d'`\"/g" date.go
+
+BUILD="build"
+
 # copy v2ray soucre to build/ for generating proto
 TEMP_V2RAY_PATH="$PROJECT/build/v2ray-core"
 chmod -R 777 $TEMP_V2RAY_PATH 2>/dev/null
