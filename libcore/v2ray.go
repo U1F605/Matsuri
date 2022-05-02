@@ -222,18 +222,3 @@ func setupResolvers() {
 	// "localhost" localDns lookup -> androidUnderlyingResolver.LookupIP()
 	localdns.SetLookupFunc(androidUnderlyingResolver.LookupIP)
 }
-
-// Neko connections
-
-func ResetConnections(system bool) {
-}
-
-func ListV2rayConnections() string {
-	list2 := make([]interface{}, 0)
-
-	b, _ := json.Marshal(&list2)
-	return string(b)
-}
-
-func CloseV2rayConnection(id uint32) {
-}
