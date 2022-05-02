@@ -437,10 +437,6 @@ class BaseService {
                     if (oldName != link.interfaceName) {
                         upstreamInterfaceName = link.interfaceName
                     }
-                    if (oldName != null && upstreamInterfaceName != null && oldName != upstreamInterfaceName) {
-                        Logs.d("Network changed: $oldName -> $upstreamInterfaceName")
-                        Libcore.resetConnections(true)
-                    }
                 }
             }
         }

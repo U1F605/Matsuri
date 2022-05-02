@@ -101,10 +101,6 @@ func (t *Tun2ray) ReadAppTraffics(listener TrafficListener) error {
 		listener.UpdateStats(stat)
 	}
 
-	listener.UpdateStats(&AppStats{
-		NekoConnectionsJSON: ListV2rayConnections(),
-	})
-
 	return nil
 }
 
