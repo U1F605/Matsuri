@@ -56,8 +56,6 @@ func InitCore(internalAssets string, externalAssets string, prefix string, useOf
 	// Set up some component
 	go func() {
 		defer initCoreDefer()
-		device.GoDebug(process)
-
 		externalAssetsPath = externalAssets
 		internalAssetsPath = internalAssets
 		assetsPrefix = prefix
