@@ -25,6 +25,7 @@ jobs:
           mkdir -p $proj
           cp -f libcore.aar $proj
           echo ">> install $(realpath $proj)/libcore.aar"
+      - uses: gradle/gradle-build-action@v2
       - name: Debug build
         env:
           BUILD_PLUGIN: none
