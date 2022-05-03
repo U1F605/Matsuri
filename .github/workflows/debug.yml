@@ -40,4 +40,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: Matsuri-1.0.0-arm64-v8a-debug.apk
-          path: ./app/build/outputs/apk/oss/debug/Matsuri-1.0.0-arm64-v8a-debug.apk
+          path: ${{ env.APK }}
