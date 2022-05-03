@@ -29,16 +29,10 @@ func IcmpPing(address string, timeout int32) (int32, error) {
 	return libping.IcmpPing(address, timeout)
 }
 
-func initCoreDefer() {
-	device.AllDefer("InitCore", forceLog)
-}
-
 func InitCore(internalAssets string, externalAssets string, prefix string, useOfficial BoolFunc, // extractV2RayAssets
 	cachePath string, process string, //InitCore
 	enableLog bool, maxKB int32, //SetEnableLog
 ) {
-	defer initCoreDefer()
-
 	isBgProcess := strings.HasSuffix(process, ":bg")
 
 	// Set up log
@@ -55,9 +49,6 @@ func InitCore(internalAssets string, externalAssets string, prefix string, useOf
 
 	// Set up some component
 	go func() {
-		defer initCoreDefer()
-		device.GoDebug(process)
-
 		externalAssetsPath = externalAssets
 		internalAssetsPath = internalAssets
 		assetsPrefix = prefix
@@ -92,7 +83,6 @@ func InitCore(internalAssets string, externalAssets string, prefix string, useOf
 
 	// CA for other programs
 	go func() {
-		defer initCoreDefer()
 		f, err := os.OpenFile(filepath.Join(internalAssets, "ca.pem"), os.O_CREATE|os.O_RDWR, 0644)
 		if err != nil {
 			forceLog("open ca.pem: " + err.Error())
