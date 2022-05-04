@@ -32,14 +32,12 @@ jobs:
           echo "ndk.dir=${ANDROID_HOME}/ndk/23.1.7779620" >> local.properties
           export LOCAL_PROPERTIES="${{ secrets.LOCAL_PROPERTIES }}"
           ./run init action library
-
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: app:assembleOssDebug
       - name: prepare
         run: |
           APK=$(find app/build/outputs/apk -name '*arm64-v8a-debug.apk')
-          APK=$(dirname $APK)
           echo "APK=$APK" >> $GITHUB_ENV
       - uses: actions/upload-artifact@v2
         with:
@@ -51,5 +49,5 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
-          file: ./app/build/outputs/apk/oss/debug/Matsuri-1.0.0-arm64-v8a-debug.apk
+          file: ${{ env.APK }}
           tag: ${{ github.ref }}
