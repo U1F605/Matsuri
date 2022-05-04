@@ -34,7 +34,7 @@ jobs:
           ./run init action library
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: app:assembleOssDebug
+          arguments: app:assembleOssRelease
       - name: prepare
         run: |
           APK=$(find app/build/outputs/apk -name '*arm64-v8a-debug.apk')
