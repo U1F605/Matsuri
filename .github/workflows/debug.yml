@@ -7,8 +7,7 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.18
@@ -18,7 +17,7 @@ jobs:
           go install -v golang.org/x/mobile/cmd/gobind@latest
           gomobile init
           ./run lib core
-          cd libcore/ && source .github/env.sh
+          cd libcore/
           gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
           rm -r libcore-sources.jar
           proj=../app/libs
@@ -26,14 +25,18 @@ jobs:
           cp -f libcore.aar $proj
           echo ">> install $(realpath $proj)/libcore.aar"
       - name: Debug build
-        env:
-          BUILD_PLUGIN: none
         run: |
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
           echo "ndk.dir=${ANDROID_HOME}/ndk/23.1.7779620" >> local.properties
           ./run init action library
-          ./gradlew :app:assembleOssDebug
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: app:assembleOssDebug
+      - name: prepare
+        run: |
+          APK=$(find app/build/outputs/apk -name '*arm64-v8a-debug.apk')
+          echo "APK=$APK" >> $GITHUB_ENV
       - uses: actions/upload-artifact@v2
         with:
           name: Matsuri-1.0.0-arm64-v8a-debug.apk
-          path: ./app/build/outputs/apk/oss/debug/Matsuri-1.0.0-arm64-v8a-debug.apk
+          path: ${{ env.APK }}
