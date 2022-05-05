@@ -396,11 +396,6 @@ class AppManagerActivity : ThemedActivity() {
                 ProxiedApp(packageManager, packageInfo.applicationInfo, packageName)
             }.sortedWith(compareBy({ !isProxiedApp(it) }, { it.name.toString() }))
 
-            scan@ for ((pkg, app) in cachedApps.entries) {
-                /*if (!sysApps && app.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0) {
-                    continue
-                }*/
-
                 val index = appsAdapter.filteredApps.indexOfFirst { it.uid == app.applicationInfo.uid }
                 var changed = false
 
