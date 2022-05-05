@@ -60,7 +60,6 @@ class ProxyInstance(profile: ProxyEntity, val service: BaseService.Interface) : 
     }
 
     fun sendInitStatuses() {
-        val time = (System.currentTimeMillis() / 1000) - 300
         for (observatoryTag in config.observatoryTags) {
             val profileId = observatoryTag.substringAfter("global-")
             if (profileId.toLongOrNull() != null) {
