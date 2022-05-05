@@ -86,7 +86,6 @@ class GuardedProcessPool(private val onFatal: suspend (IOException) -> Unit) : C
                     }
                     Logs.i("restart process: ${Commandline.toString(cmd)} (last exit code: $exitCode)")
                     start()
-                    running = true
                     onRestartCallback?.invoke()
                 }
             } catch (e: IOException) {
