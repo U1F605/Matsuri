@@ -161,8 +161,6 @@ data class ProxyEntity(
     }
 
     override fun deserializeFromBuffer(input: ByteBufferInput) {
-        val version = input.readInt()
-
         id = input.readLong()
         groupId = input.readLong()
         type = input.readInt()
