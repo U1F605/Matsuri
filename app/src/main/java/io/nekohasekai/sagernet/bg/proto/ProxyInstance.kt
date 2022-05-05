@@ -64,11 +64,6 @@ class ProxyInstance(profile: ProxyEntity, val service: BaseService.Interface) : 
             val profileId = observatoryTag.substringAfter("global-")
             if (profileId.toLongOrNull() != null) {
                 val id = profileId.toLong()
-                val profile = when {
-                    id == profile.id -> profile
-                    statsOutbounds.containsKey(id) -> statsOutbounds[id]!!.proxyEntity
-                    else -> SagerDatabase.proxyDao.getById(id)
-                } ?: continue
             }
         }
     }
