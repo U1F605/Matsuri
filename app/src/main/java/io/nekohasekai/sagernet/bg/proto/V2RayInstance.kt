@@ -162,7 +162,8 @@ abstract class V2RayInstance(
         for ((chain) in config.index) {
             chain.entries.forEachIndexed { index, (port, profile) ->
                 val bean = profile.requireBean()
-
+                val needChain = index != chain.size - 1
+                val (profileType, config) = pluginConfigs[port] ?: 0 to ""
                 when {
                     externalInstances.containsKey(port) -> {
                         externalInstances[port]!!.launch()
