@@ -41,7 +41,6 @@ import io.nekohasekai.sagernet.fmt.shadowsocksr.ShadowsocksRBean
 import io.nekohasekai.sagernet.fmt.shadowsocksr.toUri
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
 import io.nekohasekai.sagernet.fmt.socks.toUri
-import io.nekohasekai.sagernet.fmt.ssh.SSHBean
 import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.trojan.toUri
 import io.nekohasekai.sagernet.fmt.trojan_go.TrojanGoBean
@@ -82,7 +81,6 @@ data class ProxyEntity(
     var trojanGoBean: TrojanGoBean? = null,
     var naiveBean: NaiveBean? = null,
     var hysteriaBean: HysteriaBean? = null,
-    var sshBean: SSHBean? = null,
     var wgBean: WireGuardBean? = null,
     var chainBean: ChainBean? = null,
     var nekoBean: NekoBean? = null,
@@ -100,7 +98,6 @@ data class ProxyEntity(
         const val TYPE_NAIVE = 9
         const val TYPE_HYSTERIA = 15
 
-        const val TYPE_SSH = 17
         const val TYPE_WG = 18
 
         const val TYPE_CHAIN = 8
@@ -190,7 +187,6 @@ data class ProxyEntity(
             TYPE_TROJAN_GO -> trojanGoBean = KryoConverters.trojanGoDeserialize(byteArray)
             TYPE_NAIVE -> naiveBean = KryoConverters.naiveDeserialize(byteArray)
             TYPE_HYSTERIA -> hysteriaBean = KryoConverters.hysteriaDeserialize(byteArray)
-            TYPE_SSH -> sshBean = KryoConverters.sshDeserialize(byteArray)
             TYPE_WG -> wgBean = KryoConverters.wireguardDeserialize(byteArray)
 
             TYPE_CHAIN -> chainBean = KryoConverters.chainDeserialize(byteArray)
@@ -208,7 +204,6 @@ data class ProxyEntity(
         TYPE_TROJAN_GO -> "Trojan-Go"
         TYPE_NAIVE -> "Naïve"
         TYPE_HYSTERIA -> "Hysteria"
-        TYPE_SSH -> "SSH"
         TYPE_WG -> "WireGuard"
         TYPE_CHAIN -> chainName
         TYPE_NEKO -> nekoBean!!.displayType()
@@ -229,7 +224,6 @@ data class ProxyEntity(
             TYPE_TROJAN_GO -> trojanGoBean
             TYPE_NAIVE -> naiveBean
             TYPE_HYSTERIA -> hysteriaBean
-            TYPE_SSH -> sshBean
             TYPE_WG -> wgBean
 
             TYPE_CHAIN -> chainBean
@@ -248,7 +242,6 @@ data class ProxyEntity(
     fun haveStandardLink(): Boolean {
         return when (requireBean()) {
             is HysteriaBean -> false
-            is SSHBean -> false
             is WireGuardBean -> false
             is NekoBean -> nekoBean!!.haveStandardLink()
             else -> true
@@ -266,7 +259,6 @@ data class ProxyEntity(
             is TrojanGoBean -> toUri()
             is NaiveBean -> toUri()
             is HysteriaBean -> toUniversalLink()
-            is SSHBean -> toUniversalLink()
             is WireGuardBean -> toUniversalLink()
             is NekoBean -> shareLink()
             else -> null
@@ -346,7 +338,6 @@ data class ProxyEntity(
         trojanGoBean = null
         naiveBean = null
         hysteriaBean = null
-        sshBean = null
         wgBean = null
 
         chainBean = null
@@ -388,10 +379,6 @@ data class ProxyEntity(
                 type = TYPE_HYSTERIA
                 hysteriaBean = bean
             }
-            is SSHBean -> {
-                type = TYPE_SSH
-                sshBean = bean
-            }
             is WireGuardBean -> {
                 type = TYPE_WG
                 wgBean = bean
@@ -421,7 +408,6 @@ data class ProxyEntity(
                 TYPE_TROJAN_GO -> TrojanGoSettingsActivity::class.java
                 TYPE_NAIVE -> NaiveSettingsActivity::class.java
                 TYPE_HYSTERIA -> HysteriaSettingsActivity::class.java
-                TYPE_SSH -> SSHSettingsActivity::class.java
                 TYPE_WG -> WireGuardSettingsActivity::class.java
 
                 TYPE_CHAIN -> ChainSettingsActivity::class.java
