@@ -31,7 +31,6 @@ import io.nekohasekai.sagernet.fmt.shadowsocks.fixInvalidParams
 import io.nekohasekai.sagernet.fmt.shadowsocks.parseShadowsocks
 import io.nekohasekai.sagernet.fmt.shadowsocksr.ShadowsocksRBean
 import io.nekohasekai.sagernet.fmt.shadowsocksr.parseShadowsocksR
-import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
 import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.trojan_go.parseTrojanGo
 import io.nekohasekai.sagernet.fmt.v2ray.V2RayConfig
@@ -575,32 +574,6 @@ object RawUpdater : GroupUpdater() {
                         if (it.users.isNullOrEmpty()) {
                             proxies.add(httpBeanNext)
                         } else for (user in it.users) proxies.add(httpBeanNext.clone().apply {
-                            username = user.user
-                            password = user.pass
-                            name = tag ?: displayName() + " - $username"
-                        })
-                    }
-                }
-                "socks" -> {
-                    val socksBean = SOCKSBean().applyDefaultValues()
-                    streamSettings?.apply {
-                        when (security) {
-                            "tls" -> {
-                                socksBean.setTLS(true)
-                                tlsSettings?.serverName?.also {
-                                    socksBean.sni = it
-                                }
-                            }
-                        }
-                    }
-                    (settings.value as? V2RayConfig.SocksOutboundConfigurationObject)?.servers?.forEach {
-                        val socksBeanNext = socksBean.clone().apply {
-                            serverAddress = it.address
-                            serverPort = it.port
-                        }
-                        if (it.users.isNullOrEmpty()) {
-                            proxies.add(socksBeanNext)
-                        } else for (user in it.users) proxies.add(socksBeanNext.clone().apply {
                             username = user.user
                             password = user.pass
                             name = tag ?: displayName() + " - $username"
