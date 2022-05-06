@@ -39,8 +39,6 @@ import io.nekohasekai.sagernet.fmt.naive.toUri
 import io.nekohasekai.sagernet.fmt.shadowsocks.*
 import io.nekohasekai.sagernet.fmt.shadowsocksr.ShadowsocksRBean
 import io.nekohasekai.sagernet.fmt.shadowsocksr.toUri
-import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
-import io.nekohasekai.sagernet.fmt.socks.toUri
 import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.trojan.toUri
 import io.nekohasekai.sagernet.fmt.trojan_go.TrojanGoBean
@@ -72,7 +70,6 @@ data class ProxyEntity(
     var ping: Int = 0,
     var uuid: String = "",
     var error: String? = null,
-    var socksBean: SOCKSBean? = null,
     var httpBean: HttpBean? = null,
     var ssBean: ShadowsocksBean? = null,
     var ssrBean: ShadowsocksRBean? = null,
@@ -87,7 +84,6 @@ data class ProxyEntity(
 ) : Serializable() {
 
     companion object {
-        const val TYPE_SOCKS = 0
         const val TYPE_HTTP = 1
         const val TYPE_SS = 2
         const val TYPE_SSR = 3
@@ -178,7 +174,6 @@ data class ProxyEntity(
 
     fun putByteArray(byteArray: ByteArray) {
         when (type) {
-            TYPE_SOCKS -> socksBean = KryoConverters.socksDeserialize(byteArray)
             TYPE_HTTP -> httpBean = KryoConverters.httpDeserialize(byteArray)
             TYPE_SS -> ssBean = KryoConverters.shadowsocksDeserialize(byteArray)
             TYPE_SSR -> ssrBean = KryoConverters.shadowsocksRDeserialize(byteArray)
@@ -195,7 +190,6 @@ data class ProxyEntity(
     }
 
     fun displayType() = when (type) {
-        TYPE_SOCKS -> socksBean!!.protocolName()
         TYPE_HTTP -> if (httpBean!!.isTLS()) "HTTPS" else "HTTP"
         TYPE_SS -> "Shadowsocks"
         TYPE_SSR -> "ShadowsocksR"
@@ -215,7 +209,6 @@ data class ProxyEntity(
 
     fun requireBean(): AbstractBean {
         return when (type) {
-            TYPE_SOCKS -> socksBean
             TYPE_HTTP -> httpBean
             TYPE_SS -> ssBean
             TYPE_SSR -> ssrBean
@@ -250,7 +243,6 @@ data class ProxyEntity(
 
     fun toLink(): String? = with(requireBean()) {
         when (this) {
-            is SOCKSBean -> toUri()
             is HttpBean -> toUri()
             is ShadowsocksBean -> toUri()
             is ShadowsocksRBean -> toUri()
@@ -329,7 +321,6 @@ data class ProxyEntity(
     }
 
     fun putBean(bean: AbstractBean): ProxyEntity {
-        socksBean = null
         httpBean = null
         ssBean = null
         ssrBean = null
@@ -343,10 +334,6 @@ data class ProxyEntity(
         chainBean = null
 
         when (bean) {
-            is SOCKSBean -> {
-                type = TYPE_SOCKS
-                socksBean = bean
-            }
             is HttpBean -> {
                 type = TYPE_HTTP
                 httpBean = bean
@@ -399,7 +386,6 @@ data class ProxyEntity(
     fun settingIntent(ctx: Context, isSubscription: Boolean): Intent {
         return Intent(
             ctx, when (type) {
-                TYPE_SOCKS -> SocksSettingsActivity::class.java
                 TYPE_HTTP -> HttpSettingsActivity::class.java
                 TYPE_SS -> ShadowsocksSettingsActivity::class.java
                 TYPE_SSR -> ShadowsocksRSettingsActivity::class.java
