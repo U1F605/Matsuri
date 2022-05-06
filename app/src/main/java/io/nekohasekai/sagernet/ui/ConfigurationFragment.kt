@@ -322,9 +322,6 @@ class ConfigurationFragment @JvmOverloads constructor(
             R.id.action_import_file -> {
                 startFilesForResult(importFile, "*/*")
             }
-            R.id.action_new_socks -> {
-                startActivity(Intent(requireActivity(), SocksSettingsActivity::class.java))
-            }
             R.id.action_new_http -> {
                 startActivity(Intent(requireActivity(), HttpSettingsActivity::class.java))
             }
