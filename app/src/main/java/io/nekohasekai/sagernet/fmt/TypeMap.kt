@@ -23,7 +23,6 @@ import io.nekohasekai.sagernet.database.ProxyEntity
 
 object TypeMap : HashMap<String, Int>() {
     init {
-        this["socks"] = ProxyEntity.TYPE_SOCKS
         this["http"] = ProxyEntity.TYPE_HTTP
         this["ss"] = ProxyEntity.TYPE_SS
         this["ssr"] = ProxyEntity.TYPE_SSR
