@@ -56,8 +56,6 @@ fun AbstractBean.isInsecure(): ValidateResult {
         return ResultInsecure(R.raw.shadowsocksr)
     } else if (this is HttpBean) {
         if (!isTLS()) return ResultInsecure(R.raw.not_encrypted)
-    } else if (this is SOCKSBean) {
-        if (!isTLS()) return ResultInsecure(R.raw.not_encrypted)
     } else if (this is VMessBean) {
         if (security in arrayOf("", "none")) {
             if (encryption in arrayOf("none", "zero")) {
