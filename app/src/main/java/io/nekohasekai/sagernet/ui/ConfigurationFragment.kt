@@ -349,9 +349,6 @@ class ConfigurationFragment @JvmOverloads constructor(
             R.id.action_new_hysteria -> {
                 startActivity(Intent(requireActivity(), HysteriaSettingsActivity::class.java))
             }
-            R.id.action_new_ssh -> {
-                startActivity(Intent(requireActivity(), SSHSettingsActivity::class.java))
-            }
             R.id.action_new_wg -> {
                 startActivity(Intent(requireActivity(), WireGuardSettingsActivity::class.java))
             }
