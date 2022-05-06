@@ -34,7 +34,6 @@ import io.nekohasekai.sagernet.fmt.internal.ChainBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.ShadowsocksBean
 import io.nekohasekai.sagernet.fmt.shadowsocksr.ShadowsocksRBean
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
-import io.nekohasekai.sagernet.fmt.ssh.SSHBean
 import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.v2ray.StandardV2RayBean
 import io.nekohasekai.sagernet.fmt.v2ray.V2RayConfig
@@ -750,31 +749,6 @@ fun buildV2RayConfig(
                                     peerPublicKey = bean.peerPublicKey
                                     preSharedKey = bean.peerPreSharedKey
                                     mtu = bean.mtu
-                                })
-                            streamSettings = StreamSettingsObject().apply {
-                                if (needKeepAliveInterval) {
-                                    sockopt = StreamSettingsObject.SockoptObject().apply {
-                                        tcpKeepAliveInterval = keepAliveInterval
-                                    }
-                                }
-                            }
-                        } else if (bean is SSHBean) {
-                            protocol = "ssh"
-                            settings = LazyOutboundConfigurationObject(this,
-                                SSHOutbountConfigurationObject().apply {
-                                    address = bean.finalAddress
-                                    port = bean.finalPort
-                                    user = bean.username
-                                    when (bean.authType) {
-                                        SSHBean.AUTH_TYPE_PRIVATE_KEY -> {
-                                            privateKey = bean.privateKey
-                                            password = bean.privateKeyPassphrase
-                                        }
-                                        else -> {
-                                            password = bean.password
-                                        }
-                                    }
-                                    publicKey = bean.publicKey
                                 })
                             streamSettings = StreamSettingsObject().apply {
                                 if (needKeepAliveInterval) {
