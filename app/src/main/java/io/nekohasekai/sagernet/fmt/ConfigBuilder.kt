@@ -33,7 +33,6 @@ import io.nekohasekai.sagernet.fmt.http.HttpBean
 import io.nekohasekai.sagernet.fmt.internal.ChainBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.ShadowsocksBean
 import io.nekohasekai.sagernet.fmt.shadowsocksr.ShadowsocksRBean
-import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
 import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.v2ray.StandardV2RayBean
 import io.nekohasekai.sagernet.fmt.v2ray.V2RayConfig
@@ -45,7 +44,6 @@ import io.nekohasekai.sagernet.ktx.mkPort
 import io.nekohasekai.sagernet.utils.PackageCache
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
-const val TAG_SOCKS = "socks"
 const val TAG_HTTP = "http"
 const val TAG_TRANS = "trans"
 
@@ -430,26 +428,6 @@ fun buildV2RayConfig(
 
                         if (bean is StandardV2RayBean) {
                             when (bean) {
-                                is SOCKSBean -> {
-                                    protocol = "socks"
-                                    settings = LazyOutboundConfigurationObject(this,
-                                        SocksOutboundConfigurationObject().apply {
-                                            servers = listOf(SocksOutboundConfigurationObject.ServerObject()
-                                                .apply {
-                                                    address = bean.serverAddress
-                                                    port = bean.serverPort
-                                                    if (!bean.username.isNullOrBlank()) {
-                                                        users = listOf(
-                                                            SocksOutboundConfigurationObject.ServerObject.UserObject()
-                                                                .apply {
-                                                                    user = bean.username
-                                                                    pass = bean.password
-                                                                })
-                                                    }
-                                                })
-                                            version = bean.protocolVersionName()
-                                        })
-                                }
                                 is HttpBean -> {
                                     protocol = "http"
                                     settings = LazyOutboundConfigurationObject(this,
