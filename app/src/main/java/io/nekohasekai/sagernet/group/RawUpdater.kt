@@ -232,17 +232,6 @@ object RawUpdater : GroupUpdater() {
                     // Note: YAML numbers parsed as "Long"
 
                     when (proxy["type"] as String) {
-                        "socks5" -> {
-                            proxies.add(SOCKSBean().apply {
-                                serverAddress = proxy["server"] as String
-                                serverPort = proxy["port"].toString().toInt()
-                                username = proxy["username"]?.toString()
-                                password = proxy["password"]?.toString()
-                                setTLS(proxy["tls"]?.toString() == "true")
-                                sni = proxy["sni"]?.toString()
-                                name = proxy["name"]?.toString()
-                            })
-                        }
                         "http" -> {
                             proxies.add(HttpBean().apply {
                                 serverAddress = proxy["server"] as String
