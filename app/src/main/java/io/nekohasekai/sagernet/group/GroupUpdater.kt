@@ -30,7 +30,6 @@ import io.nekohasekai.sagernet.fmt.AbstractBean
 import io.nekohasekai.sagernet.fmt.http.HttpBean
 import io.nekohasekai.sagernet.fmt.hysteria.HysteriaBean
 import io.nekohasekai.sagernet.fmt.naive.NaiveBean
-import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
 import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.trojan_go.TrojanGoBean
 import io.nekohasekai.sagernet.fmt.v2ray.StandardV2RayBean
@@ -64,9 +63,6 @@ abstract class GroupUpdater {
 
         with(bean) {
             when (this) {
-                is SOCKSBean -> {
-                    if (isTLS() && sni.isBlank()) sni = bean.serverAddress
-                }
                 is HttpBean -> {
                     if (isTLS() && sni.isBlank()) sni = bean.serverAddress
                 }
