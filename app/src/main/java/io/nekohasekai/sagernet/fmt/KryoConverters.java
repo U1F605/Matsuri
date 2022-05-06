@@ -129,12 +129,6 @@ public class KryoConverters {
     }
 
     @TypeConverter
-    public static SSHBean sshDeserialize(byte[] bytes) {
-        if (JavaUtil.isEmpty(bytes)) return null;
-        return deserialize(new SSHBean(), bytes);
-    }
-
-    @TypeConverter
     public static WireGuardBean wireguardDeserialize(byte[] bytes) {
         if (JavaUtil.isEmpty(bytes)) return null;
         return deserialize(new WireGuardBean(), bytes);
