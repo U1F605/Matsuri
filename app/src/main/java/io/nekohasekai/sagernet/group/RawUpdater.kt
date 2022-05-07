@@ -393,14 +393,6 @@ object RawUpdater : GroupUpdater() {
             } catch (e: YAMLException) {
                 Logs.w(e)
             }
-        } else if (text.contains("[Interface]")) {
-            // wireguard
-            try {
-                proxies.addAll(parseWireGuard(text))
-                return proxies
-            } catch (e: Exception) {
-                Logs.w(e)
-            }
         }
 
         try {
