@@ -49,7 +49,6 @@ import io.nekohasekai.sagernet.fmt.trojan_go.toUri
 import io.nekohasekai.sagernet.fmt.v2ray.StandardV2RayBean
 import io.nekohasekai.sagernet.fmt.v2ray.VMessBean
 import io.nekohasekai.sagernet.fmt.v2ray.toUri
-import io.nekohasekai.sagernet.fmt.wireguard.WireGuardBean
 import io.nekohasekai.sagernet.ktx.app
 import io.nekohasekai.sagernet.ktx.applyDefaultValues
 import io.nekohasekai.sagernet.ktx.isTLS
@@ -81,7 +80,6 @@ data class ProxyEntity(
     var trojanGoBean: TrojanGoBean? = null,
     var naiveBean: NaiveBean? = null,
     var hysteriaBean: HysteriaBean? = null,
-    var wgBean: WireGuardBean? = null,
     var chainBean: ChainBean? = null,
     var nekoBean: NekoBean? = null,
 ) : Serializable() {
@@ -97,8 +95,6 @@ data class ProxyEntity(
         const val TYPE_TROJAN_GO = 7
         const val TYPE_NAIVE = 9
         const val TYPE_HYSTERIA = 15
-
-        const val TYPE_WG = 18
 
         const val TYPE_CHAIN = 8
 
@@ -187,7 +183,6 @@ data class ProxyEntity(
             TYPE_TROJAN_GO -> trojanGoBean = KryoConverters.trojanGoDeserialize(byteArray)
             TYPE_NAIVE -> naiveBean = KryoConverters.naiveDeserialize(byteArray)
             TYPE_HYSTERIA -> hysteriaBean = KryoConverters.hysteriaDeserialize(byteArray)
-            TYPE_WG -> wgBean = KryoConverters.wireguardDeserialize(byteArray)
 
             TYPE_CHAIN -> chainBean = KryoConverters.chainDeserialize(byteArray)
             TYPE_NEKO -> nekoBean = KryoConverters.nekoDeserialize(byteArray)
@@ -204,7 +199,6 @@ data class ProxyEntity(
         TYPE_TROJAN_GO -> "Trojan-Go"
         TYPE_NAIVE -> "Naïve"
         TYPE_HYSTERIA -> "Hysteria"
-        TYPE_WG -> "WireGuard"
         TYPE_CHAIN -> chainName
         TYPE_NEKO -> nekoBean!!.displayType()
         else -> "Undefined type $type"
@@ -224,7 +218,6 @@ data class ProxyEntity(
             TYPE_TROJAN_GO -> trojanGoBean
             TYPE_NAIVE -> naiveBean
             TYPE_HYSTERIA -> hysteriaBean
-            TYPE_WG -> wgBean
 
             TYPE_CHAIN -> chainBean
             TYPE_NEKO -> nekoBean
@@ -242,7 +235,6 @@ data class ProxyEntity(
     fun haveStandardLink(): Boolean {
         return when (requireBean()) {
             is HysteriaBean -> false
-            is WireGuardBean -> false
             is NekoBean -> nekoBean!!.haveStandardLink()
             else -> true
         }
@@ -259,7 +251,6 @@ data class ProxyEntity(
             is TrojanGoBean -> toUri()
             is NaiveBean -> toUri()
             is HysteriaBean -> toUniversalLink()
-            is WireGuardBean -> toUniversalLink()
             is NekoBean -> shareLink()
             else -> null
         }
@@ -305,7 +296,6 @@ data class ProxyEntity(
             TYPE_TROJAN_GO -> true
             TYPE_NAIVE -> true
             TYPE_HYSTERIA -> true
-            TYPE_WG -> DataStore.providerWireguard != TrojanProvider.V2RAY
             TYPE_NEKO -> true
             else -> false
         }
@@ -338,7 +328,6 @@ data class ProxyEntity(
         trojanGoBean = null
         naiveBean = null
         hysteriaBean = null
-        wgBean = null
 
         chainBean = null
 
@@ -379,10 +368,6 @@ data class ProxyEntity(
                 type = TYPE_HYSTERIA
                 hysteriaBean = bean
             }
-            is WireGuardBean -> {
-                type = TYPE_WG
-                wgBean = bean
-            }
             is ChainBean -> {
                 type = TYPE_CHAIN
                 chainBean = bean
@@ -408,8 +393,6 @@ data class ProxyEntity(
                 TYPE_TROJAN_GO -> TrojanGoSettingsActivity::class.java
                 TYPE_NAIVE -> NaiveSettingsActivity::class.java
                 TYPE_HYSTERIA -> HysteriaSettingsActivity::class.java
-                TYPE_WG -> WireGuardSettingsActivity::class.java
-
                 TYPE_CHAIN -> ChainSettingsActivity::class.java
                 TYPE_NEKO -> NekoSettingActivity::class.java
                 else -> throw IllegalArgumentException()
