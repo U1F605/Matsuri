@@ -217,7 +217,6 @@
     <string name="action_naive" translatable="false">Naïve</string>
     <string name="action_ping_tunnel" translatable="false">Ping Tunnel</string>
     <string name="action_hysteria" translatable="false">Hysteria</string>
-    <string name="action_ssh" translatable="false">SSH</string>
     <string name="proxy_chain">Proxy Chain</string>
     <string name="custom_config">Custom Config</string>
     <string name="balancer">Balancer</string>
