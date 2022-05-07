@@ -436,10 +436,6 @@
     <string name="profile_traffic_statistics_summary">When disabled, the used traffic will not be counted</string>
     <string name="no_statistics">No statistics yet</string>
     <string name="app_statistics_disabled">App Traffic statistics disabled</string>
-    <string name="ssh_auth_type_none">None</string>
-    <string name="ssh_public_key">Public Key</string>
-    <string name="ssh_private_key">Private Key</string>
-    <string name="ssh_private_key_passphrase">Private Key Passphrase</string>
     <string name="translate_platform">Translate Platform</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_log">Logs</string>
