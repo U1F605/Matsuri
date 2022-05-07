@@ -9,13 +9,13 @@ replace github.com/v2fly/v2ray-core/v5 v5.0.0 => ../../v2ray-core
 require (
 	github.com/Dreamacro/clash v1.10.0
 	github.com/miekg/dns v1.1.48
-	github.com/sagernet/gomobile v0.0.0-20220214172500-89df302623c8
 	github.com/sagernet/libping v0.1.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/ulikunitz/xz v0.5.10
 	github.com/v2fly/v2ray-core/v5 v5.0.0
 	go.uber.org/automaxprocs v1.5.1
-	golang.org/x/sys v0.0.0-20220429233432-b5fbb4746d32
+	golang.org/x/mobile v0.0.0-20220504144722-50dca8fc073d
+	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6
 )
 
 require (
