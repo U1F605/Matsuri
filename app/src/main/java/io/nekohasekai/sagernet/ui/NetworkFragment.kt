@@ -44,12 +44,6 @@ class NetworkFragment : NamedFragment(R.layout.layout_network) {
 
         //Markwon.create(requireContext())
         //    .setMarkdown(binding.wrapLicense, getString(R.string.warp_license))
-
-        binding.warpGenerate.setOnClickListener {
-            runBlocking {
-                generateWarpConfiguration()
-            }
-        }
     }
 
 }
