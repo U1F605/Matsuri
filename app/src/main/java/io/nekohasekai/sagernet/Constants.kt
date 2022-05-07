@@ -85,7 +85,6 @@ object Key {
 
     // Protocol Settings
     const val PROVIDER_TROJAN = "providerTrojan"
-    const val PROVIDER_WIREGUARD = "providerWireguard"
     const val MUX_PROTOCOLS = "mux"
     const val MUX_CONCURRENCY = "muxConcurrency"
 
