@@ -18,6 +18,7 @@ jobs:
           gomobile init
           ./run lib core
           cd libcore/
+          go mod download
           gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
           proj=../app/libs
           mkdir -p $proj
