@@ -28,7 +28,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.TrojanProvider
-import io.nekohasekai.sagernet.WireguardProvider
 import io.nekohasekai.sagernet.bg.AbstractInstance
 import io.nekohasekai.sagernet.bg.GuardedProcessPool
 import io.nekohasekai.sagernet.database.DataStore
