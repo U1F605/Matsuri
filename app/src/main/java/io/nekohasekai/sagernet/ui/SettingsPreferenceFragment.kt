@@ -281,7 +281,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         transproxyMode.onPreferenceChangeListener = reloadListener
 
         providerTrojan.onPreferenceChangeListener = reloadListener
-        providerWireguard.onPreferenceChangeListener = reloadListener
         appTrafficStatistics.onPreferenceChangeListener = reloadListener
         tunImplementation.onPreferenceChangeListener = reloadListener
         destinationOverride.onPreferenceChangeListener = reloadListener
