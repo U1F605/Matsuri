@@ -7,5 +7,3 @@ bash buildScript/lib/core/clone.sh
 
 [ -f libcore/go.mod ] || exit 1
 cd libcore
-
-./init.sh || exit 1
