@@ -39,7 +39,6 @@ import io.nekohasekai.sagernet.fmt.v2ray.StandardV2RayBean
 import io.nekohasekai.sagernet.fmt.v2ray.V2RayConfig
 import io.nekohasekai.sagernet.fmt.v2ray.V2RayConfig.*
 import io.nekohasekai.sagernet.fmt.v2ray.VMessBean
-import io.nekohasekai.sagernet.fmt.wireguard.WireGuardBean
 import io.nekohasekai.sagernet.ktx.isIpAddress
 import io.nekohasekai.sagernet.ktx.mkPort
 import io.nekohasekai.sagernet.utils.PackageCache
@@ -735,26 +734,6 @@ fun buildV2RayConfig(
                                 if (bean.allowInsecure) {
                                     tlsSettings = tlsSettings ?: TLSObject()
                                     tlsSettings.allowInsecure = true
-                                }
-                            }
-                        } else if (bean is WireGuardBean) {
-                            protocol = "wireguard"
-                            settings = LazyOutboundConfigurationObject(this,
-                                WireGuardOutbounzConfigurationObject().apply {
-                                    address = bean.finalAddress
-                                    port = bean.finalPort
-                                    network = "udp"
-                                    localAddresses = bean.localAddress.split("\n")
-                                    privateKey = bean.privateKey
-                                    peerPublicKey = bean.peerPublicKey
-                                    preSharedKey = bean.peerPreSharedKey
-                                    mtu = bean.mtu
-                                })
-                            streamSettings = StreamSettingsObject().apply {
-                                if (needKeepAliveInterval) {
-                                    sockopt = StreamSettingsObject.SockoptObject().apply {
-                                        tcpKeepAliveInterval = keepAliveInterval
-                                    }
                                 }
                             }
                         }
