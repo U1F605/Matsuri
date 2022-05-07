@@ -455,8 +455,6 @@ public class V2RayConfig {
                     return TrojanOutboundConfigurationObject.class;
                 case "loopback":
                     return LoopbackOutboundConfigurationObject.class;
-                case "ssh":
-                    return SSHOutbountConfigurationObject.class;
             }
             return null;
         }
@@ -623,18 +621,6 @@ public class V2RayConfig {
     public static class LoopbackOutboundConfigurationObject implements OutboundConfigurationObject {
 
         public String inboundTag;
-
-    }
-
-    public static class SSHOutbountConfigurationObject implements OutboundConfigurationObject {
-
-        public String address;
-        public Integer port;
-        public String user;
-        public String password;
-        public String privateKey;
-        public String publicKey;
-        public Integer userLevel;
 
     }
 
