@@ -36,7 +36,6 @@ import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.trojan_go.parseTrojanGo
 import io.nekohasekai.sagernet.fmt.v2ray.V2RayConfig
 import io.nekohasekai.sagernet.fmt.v2ray.VMessBean
-import io.nekohasekai.sagernet.fmt.wireguard.WireGuardBean
 import io.nekohasekai.sagernet.ktx.*
 import libcore.Libcore
 import moe.matsuri.nya.Protocols
@@ -394,14 +393,6 @@ object RawUpdater : GroupUpdater() {
             } catch (e: YAMLException) {
                 Logs.w(e)
             }
-        } else if (text.contains("[Interface]")) {
-            // wireguard
-            try {
-                proxies.addAll(parseWireGuard(text))
-                return proxies
-            } catch (e: Exception) {
-                Logs.w(e)
-            }
         }
 
         try {
@@ -432,36 +423,6 @@ object RawUpdater : GroupUpdater() {
             "dummy" -> "none"
             else -> cipher
         }
-    }
-
-    fun parseWireGuard(conf: String): List<WireGuardBean> {
-        val ini = Ini(StringReader(conf))
-        val iface = ini["Interface"] ?: error("Missing 'Interface' selection")
-        val bean = WireGuardBean().applyDefaultValues()
-        val localAddresses = iface.getAll("Address")
-        if (localAddresses.isNullOrEmpty()) error("Empty address in 'Interface' selection")
-        bean.localAddress = localAddresses.flatMap { it.split(",") }.let { address ->
-            address.joinToString("\n") { it.substringBefore("/") }
-        }
-        bean.privateKey = iface["PrivateKey"]
-        val peers = ini.getAll("Peer")
-        if (peers.isNullOrEmpty()) error("Missing 'Peer' selections")
-        val beans = mutableListOf<WireGuardBean>()
-        for (peer in peers) {
-            val endpoint = peer["Endpoint"]
-            if (endpoint.isNullOrBlank() || !endpoint.contains(":")) {
-                continue
-            }
-
-            val peerBean = bean.clone()
-            peerBean.serverAddress = endpoint.substringBeforeLast(":")
-            peerBean.serverPort = endpoint.substringAfterLast(":").toIntOrNull() ?: continue
-            peerBean.peerPublicKey = peer["PublicKey"] ?: continue
-            peerBean.peerPreSharedKey = peer["PresharedKey"]
-            beans.add(peerBean.applyDefaultValues())
-        }
-        if (beans.isEmpty()) error("Empty available peer list")
-        return beans
     }
 
     fun parseJSON(json: Any): List<AbstractBean> {
