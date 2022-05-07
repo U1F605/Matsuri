@@ -205,11 +205,6 @@ object TrojanProvider {
     const val TROJAN_GO = 2
 }
 
-object WireguardProvider {
-    const val V2RAY = 0
-    const val PLUGIN = 1
-}
-
 object IPv6Mode {
     const val DISABLE = 0
     const val ENABLE = 1
