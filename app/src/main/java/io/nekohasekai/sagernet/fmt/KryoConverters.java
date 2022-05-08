@@ -31,7 +31,6 @@ import java.io.ByteArrayOutputStream;
 import io.nekohasekai.sagernet.database.SubscriptionBean;
 import io.nekohasekai.sagernet.fmt.http.HttpBean;
 import io.nekohasekai.sagernet.fmt.internal.ChainBean;
-import io.nekohasekai.sagernet.fmt.naive.NaiveBean;
 import io.nekohasekai.sagernet.fmt.shadowsocks.ShadowsocksBean;
 import io.nekohasekai.sagernet.fmt.shadowsocksr.ShadowsocksRBean;
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean;
@@ -111,12 +110,6 @@ public class KryoConverters {
     public static TrojanGoBean trojanGoDeserialize(byte[] bytes) {
         if (JavaUtil.isEmpty(bytes)) return null;
         return deserialize(new TrojanGoBean(), bytes);
-    }
-
-    @TypeConverter
-    public static NaiveBean naiveDeserialize(byte[] bytes) {
-        if (JavaUtil.isEmpty(bytes)) return null;
-        return deserialize(new NaiveBean(), bytes);
     }
 
     @TypeConverter
