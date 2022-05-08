@@ -30,7 +30,6 @@ object TypeMap : HashMap<String, Int>() {
         this["vmess"] = ProxyEntity.TYPE_VMESS
         this["trojan"] = ProxyEntity.TYPE_TROJAN
         this["trojan-go"] = ProxyEntity.TYPE_TROJAN_GO
-        this["naive"] = ProxyEntity.TYPE_NAIVE
         this["neko"] = ProxyEntity.TYPE_NEKO
     }
 
