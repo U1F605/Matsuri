@@ -30,7 +30,6 @@ import java.io.ByteArrayOutputStream;
 
 import io.nekohasekai.sagernet.database.SubscriptionBean;
 import io.nekohasekai.sagernet.fmt.http.HttpBean;
-import io.nekohasekai.sagernet.fmt.hysteria.HysteriaBean;
 import io.nekohasekai.sagernet.fmt.internal.ChainBean;
 import io.nekohasekai.sagernet.fmt.naive.NaiveBean;
 import io.nekohasekai.sagernet.fmt.shadowsocks.ShadowsocksBean;
@@ -118,12 +117,6 @@ public class KryoConverters {
     public static NaiveBean naiveDeserialize(byte[] bytes) {
         if (JavaUtil.isEmpty(bytes)) return null;
         return deserialize(new NaiveBean(), bytes);
-    }
-
-    @TypeConverter
-    public static HysteriaBean hysteriaDeserialize(byte[] bytes) {
-        if (JavaUtil.isEmpty(bytes)) return null;
-        return deserialize(new HysteriaBean(), bytes);
     }
 
     @TypeConverter

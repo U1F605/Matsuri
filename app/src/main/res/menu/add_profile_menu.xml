@@ -43,9 +43,6 @@
                         android:id="@+id/action_new_naive"
                         android:title="@string/action_naive" />
                     <item
-                        android:id="@+id/action_new_hysteria"
-                        android:title="@string/action_hysteria" />
-                    <item
                         android:id="@+id/action_new_chain"
                         android:title="@string/proxy_chain" />
                 </menu>
