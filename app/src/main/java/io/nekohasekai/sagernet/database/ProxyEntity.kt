@@ -73,7 +73,6 @@ data class ProxyEntity(
     var vmessBean: VMessBean? = null,
     var trojanBean: TrojanBean? = null,
     var trojanGoBean: TrojanGoBean? = null,
-    var naiveBean: NaiveBean? = null,
     var chainBean: ChainBean? = null,
     var nekoBean: NekoBean? = null,
 ) : Serializable() {
