@@ -79,7 +79,6 @@ data class ProxyEntity(
     var trojanBean: TrojanBean? = null,
     var trojanGoBean: TrojanGoBean? = null,
     var naiveBean: NaiveBean? = null,
-    var hysteriaBean: HysteriaBean? = null,
     var chainBean: ChainBean? = null,
     var nekoBean: NekoBean? = null,
 ) : Serializable() {
@@ -94,7 +93,6 @@ data class ProxyEntity(
         const val TYPE_TROJAN = 6
         const val TYPE_TROJAN_GO = 7
         const val TYPE_NAIVE = 9
-        const val TYPE_HYSTERIA = 15
 
         const val TYPE_CHAIN = 8
 
@@ -182,8 +180,6 @@ data class ProxyEntity(
             TYPE_TROJAN -> trojanBean = KryoConverters.trojanDeserialize(byteArray)
             TYPE_TROJAN_GO -> trojanGoBean = KryoConverters.trojanGoDeserialize(byteArray)
             TYPE_NAIVE -> naiveBean = KryoConverters.naiveDeserialize(byteArray)
-            TYPE_HYSTERIA -> hysteriaBean = KryoConverters.hysteriaDeserialize(byteArray)
-
             TYPE_CHAIN -> chainBean = KryoConverters.chainDeserialize(byteArray)
             TYPE_NEKO -> nekoBean = KryoConverters.nekoDeserialize(byteArray)
         }
@@ -198,7 +194,6 @@ data class ProxyEntity(
         TYPE_TROJAN -> "Trojan"
         TYPE_TROJAN_GO -> "Trojan-Go"
         TYPE_NAIVE -> "Naïve"
-        TYPE_HYSTERIA -> "Hysteria"
         TYPE_CHAIN -> chainName
         TYPE_NEKO -> nekoBean!!.displayType()
         else -> "Undefined type $type"
@@ -217,8 +212,6 @@ data class ProxyEntity(
             TYPE_TROJAN -> trojanBean
             TYPE_TROJAN_GO -> trojanGoBean
             TYPE_NAIVE -> naiveBean
-            TYPE_HYSTERIA -> hysteriaBean
-
             TYPE_CHAIN -> chainBean
             TYPE_NEKO -> nekoBean
             else -> error("Undefined type $type")
@@ -234,7 +227,6 @@ data class ProxyEntity(
 
     fun haveStandardLink(): Boolean {
         return when (requireBean()) {
-            is HysteriaBean -> false
             is NekoBean -> nekoBean!!.haveStandardLink()
             else -> true
         }
@@ -250,7 +242,6 @@ data class ProxyEntity(
             is TrojanBean -> toUri()
             is TrojanGoBean -> toUri()
             is NaiveBean -> toUri()
-            is HysteriaBean -> toUniversalLink()
             is NekoBean -> shareLink()
             else -> null
         }
@@ -279,10 +270,6 @@ data class ProxyEntity(
                                 append("\n\n")
                                 append(bean.buildNaiveConfig(port))
                             }
-                            is HysteriaBean -> {
-                                append("\n\n")
-                                append(bean.buildHysteriaConfig(port, null))
-                            }
                         }
                     }
                 }
@@ -295,7 +282,6 @@ data class ProxyEntity(
             TYPE_TROJAN -> DataStore.providerTrojan != TrojanProvider.V2RAY
             TYPE_TROJAN_GO -> true
             TYPE_NAIVE -> true
-            TYPE_HYSTERIA -> true
             TYPE_NEKO -> true
             else -> false
         }
@@ -327,7 +313,6 @@ data class ProxyEntity(
         trojanBean = null
         trojanGoBean = null
         naiveBean = null
-        hysteriaBean = null
 
         chainBean = null
 
@@ -364,10 +349,6 @@ data class ProxyEntity(
                 type = TYPE_NAIVE
                 naiveBean = bean
             }
-            is HysteriaBean -> {
-                type = TYPE_HYSTERIA
-                hysteriaBean = bean
-            }
             is ChainBean -> {
                 type = TYPE_CHAIN
                 chainBean = bean
@@ -392,7 +373,6 @@ data class ProxyEntity(
                 TYPE_TROJAN -> TrojanSettingsActivity::class.java
                 TYPE_TROJAN_GO -> TrojanGoSettingsActivity::class.java
                 TYPE_NAIVE -> NaiveSettingsActivity::class.java
-                TYPE_HYSTERIA -> HysteriaSettingsActivity::class.java
                 TYPE_CHAIN -> ChainSettingsActivity::class.java
                 TYPE_NEKO -> NekoSettingActivity::class.java
                 else -> throw IllegalArgumentException()
