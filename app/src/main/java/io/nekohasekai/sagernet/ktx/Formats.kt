@@ -204,13 +204,6 @@ suspend fun parseProxies(text: String): List<AbstractBean> {
             }.onFailure {
                 Logs.w(it)
             }
-        } else if (startsWith("hysteria://")) {
-            Logs.d("Try parse hysteria link: $this")
-            runCatching {
-                entities.add(parseHysteria(this))
-            }.onFailure {
-                Logs.w(it)
-            }
         } else { // Neko Plugins
             NekoPluginManager.getProtocols().forEach { obj ->
                 obj.protocolConfig.optJSONArray("links")?.forEach { _, any ->
