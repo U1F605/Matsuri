@@ -301,6 +301,9 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                         snackbar(R.string.copy_success).show()
                     }
                 }.show()
+                if (tunImplementation.value != "${TunImplementation.SYSTEM}") {
+                    tunImplementation.value = "${TunImplementation.SYSTEM}"
+                }
             } else needReload()
             true
         }
