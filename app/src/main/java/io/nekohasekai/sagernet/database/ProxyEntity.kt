@@ -254,10 +254,6 @@ data class ProxyEntity(
                                 append("\n\n")
                                 append(bean.buildTrojanGoConfig(port))
                             }
-                            is NaiveBean -> {
-                                append("\n\n")
-                                append(bean.buildNaiveConfig(port))
-                            }
                         }
                     }
                 }
