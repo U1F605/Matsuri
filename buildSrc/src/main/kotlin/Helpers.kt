@@ -82,7 +82,6 @@ fun Project.requireTargetAbi(): String {
                 targetTask.contains("arm64") -> targetAbi = "arm64-v8a"
                 targetTask.contains("arm") -> targetAbi = "armeabi-v7a"
                 targetTask.contains("x64") -> targetAbi = "x86_64"
-                targetTask.contains("x86") -> targetAbi = "x86"
             }
         }
     }
@@ -186,7 +185,7 @@ fun Project.setupNdkLibrary() {
                 if (targetAbi.isNotBlank()) {
                     abiFilters(targetAbi)
                 } else {
-                    abiFilters("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+                    abiFilters("armeabi-v7a", "arm64-v8a", "x86_64")
                 }
                 arguments("-j${Runtime.getRuntime().availableProcessors()}")
             }
@@ -206,7 +205,7 @@ fun Project.setupCMakeLibrary() {
                 if (targetAbi.isNotBlank()) {
                     abiFilters(targetAbi)
                 } else {
-                    abiFilters("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+                    abiFilters("armeabi-v7a", "arm64-v8a", "x86_64")
                 }
                 arguments("-j${Runtime.getRuntime().availableProcessors()}")
             }
@@ -295,10 +294,6 @@ fun Project.setupAppCommon() {
                                     outputFile.name.contains("-x86_64") -> {
                                         githubEnv.appendText("SUM_X64=${sum.absolutePath}\n")
                                         githubEnv.appendText("SHA256_X64=$sha256\n")
-                                    }
-                                    outputFile.name.contains("-x86") -> {
-                                        githubEnv.appendText("SUM_X86=${sum.absolutePath}\n")
-                                        githubEnv.appendText("SHA256_X86=$sha256\n")
                                     }
                                 }
                             }
