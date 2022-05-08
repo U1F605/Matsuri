@@ -439,7 +439,6 @@
         <item>UTP</item>
         <item>WECHAT-VIDEO</item>
         <item>DTLS</item>
-        <item>WIREGUARD</item>
     </string-array>
 
     <string-array name="kcp_quic_headers_value">
@@ -448,7 +447,6 @@
         <item>utp</item>
         <item>wechat-video</item>
         <item>dtls</item>
-        <item>wireguard</item>
     </string-array>
 
     <string-array name="quic_security_entry">
