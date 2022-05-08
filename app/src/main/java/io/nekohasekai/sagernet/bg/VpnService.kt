@@ -209,7 +209,7 @@ class VpnService : BaseVpnService(),
         var bypass = DataStore.bypass
         var workaroundSYSTEM = DataStore.tunImplementation == TunImplementation.SYSTEM
         var needBypassRootUid = workaroundSYSTEM || data.proxy!!.config.outboundTagsAll.values.any {
-            it.nekoBean?.needBypassRootUid() == true || it.hysteriaBean?.protocol == HysteriaBean.PROTOCOL_FAKETCP
+            it.nekoBean?.needBypassRootUid() == true
         }
 
         if (proxyApps || needBypassRootUid) {
