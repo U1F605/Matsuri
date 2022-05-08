@@ -35,8 +35,6 @@ import io.nekohasekai.sagernet.database.ProxyEntity
 import io.nekohasekai.sagernet.fmt.LOCALHOST
 import io.nekohasekai.sagernet.fmt.V2rayBuildResult
 import io.nekohasekai.sagernet.fmt.buildV2RayConfig
-import io.nekohasekai.sagernet.fmt.naive.NaiveBean
-import io.nekohasekai.sagernet.fmt.naive.buildNaiveConfig
 import io.nekohasekai.sagernet.fmt.trojan.TrojanBean
 import io.nekohasekai.sagernet.fmt.trojan.buildTrojanConfig
 import io.nekohasekai.sagernet.fmt.trojan.buildTrojanGoConfig
@@ -111,10 +109,6 @@ abstract class V2RayInstance(
                         initPlugin("trojan-go-plugin")
                         pluginConfigs[port] = profile.type to bean.buildTrojanGoConfig(port)
                     }
-                    is NaiveBean -> {
-                        initPlugin("naive-plugin")
-                        pluginConfigs[port] = profile.type to bean.buildNaiveConfig(port)
-                    }
                     is NekoBean -> {
                         // check if plugin binary can be loaded
                         initPlugin(bean.plgId)
@@ -178,35 +172,6 @@ abstract class V2RayInstance(
                         )
 
                         processes.start(commands)
-                    }
-                    bean is NaiveBean -> {
-                        val configFile = File(
-                            cache, "naive_" + SystemClock.elapsedRealtime() + ".json"
-                        )
-
-                        configFile.parentFile?.mkdirs()
-                        configFile.writeText(config)
-                        cacheFiles.add(configFile)
-
-                        val envMap = mutableMapOf<String, String>()
-
-                        if (bean.certificates.isNotBlank()) {
-                            val certFile = File(
-                                cache, "naive_" + SystemClock.elapsedRealtime() + ".crt"
-                            )
-
-                            certFile.parentFile?.mkdirs()
-                            certFile.writeText(bean.certificates)
-                            cacheFiles.add(certFile)
-
-                            envMap["SSL_CERT_FILE"] = certFile.absolutePath
-                        }
-
-                        val commands = mutableListOf(
-                            initPlugin("naive-plugin").path, configFile.absolutePath
-                        )
-
-                        processes.start(commands, envMap)
                     }
                     bean is NekoBean -> {
                         // config built from JS
