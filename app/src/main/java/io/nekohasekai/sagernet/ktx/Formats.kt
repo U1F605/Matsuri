@@ -24,7 +24,6 @@ import io.nekohasekai.sagernet.fmt.AbstractBean
 import io.nekohasekai.sagernet.fmt.Serializable
 import io.nekohasekai.sagernet.fmt.gson.gson
 import io.nekohasekai.sagernet.fmt.http.parseHttp
-import io.nekohasekai.sagernet.fmt.naive.parseNaive
 import io.nekohasekai.sagernet.fmt.parseUniversal
 import io.nekohasekai.sagernet.fmt.shadowsocks.parseShadowsocks
 import io.nekohasekai.sagernet.fmt.shadowsocksr.parseShadowsocksR
@@ -193,13 +192,6 @@ suspend fun parseProxies(text: String): List<AbstractBean> {
             Logs.d("Try parse shadowsocksr link: $this")
             runCatching {
                 entities.add(parseShadowsocksR(this))
-            }.onFailure {
-                Logs.w(it)
-            }
-        } else if (startsWith("naive+")) {
-            Logs.d("Try parse naive link: $this")
-            runCatching {
-                entities.add(parseNaive(this))
             }.onFailure {
                 Logs.w(it)
             }
