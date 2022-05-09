@@ -2,6 +2,11 @@ name: Debug build
 
 on:
   push:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag'
+        required: true
 
 jobs:
   Build:
