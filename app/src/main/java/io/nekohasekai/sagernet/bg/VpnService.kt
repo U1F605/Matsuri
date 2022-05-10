@@ -84,11 +84,6 @@ class VpnService : BaseVpnService(),
     }
 
     lateinit var conn: ParcelFileDescriptor
-    private lateinit var tun: Tun2ray
-    fun getTun(): Tun2ray? {
-        if (!::tun.isInitialized) return null
-        return tun
-    }
 
     private var active = false
     private var metered = false
@@ -295,8 +290,6 @@ class VpnService : BaseVpnService(),
             localResolver = this@VpnService
             fdProtector = this@VpnService
         }
-
-        tun = Libcore.newTun2ray(config)
     }
 
     // this is sekaiResolver
@@ -373,7 +366,6 @@ class VpnService : BaseVpnService(),
         if (!DataStore.appTrafficStatistics) return
         val tun = getTun() ?: return
         appStats.clear()
-        tun.readAppTraffics(this)
         val toUpdate = mutableListOf<StatsEntity>()
         val all = SagerDatabase.statsDao.all().associateBy { it.packageName }
         for (stats in appStats) {
