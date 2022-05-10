@@ -7,7 +7,6 @@ import (
 	"libcore/protect"
 	"log"
 	gonet "net"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -17,7 +16,6 @@ import (
 	"github.com/v2fly/v2ray-core/v5/common/buf"
 	"github.com/v2fly/v2ray-core/v5/common/net"
 	"github.com/v2fly/v2ray-core/v5/features/dns"
-	dns_feature "github.com/v2fly/v2ray-core/v5/features/dns"
 	v2rayDns "github.com/v2fly/v2ray-core/v5/features/dns"
 	"github.com/v2fly/v2ray-core/v5/features/dns/localdns"
 	"github.com/v2fly/v2ray-core/v5/features/routing"
@@ -133,7 +131,6 @@ var dc dns.Client
 
 type simpleSekaiWrapper struct {
 	androidResolver *net.Resolver
-	sekaiResolver   LocalResolver // passed from java (only when VPNService)
 }
 
 func (p *simpleSekaiWrapper) LookupIP(network, host string) (ret []net.IP, err error) {
