@@ -59,9 +59,7 @@ import android.net.VpnService as BaseVpnService
 
 class VpnService : BaseVpnService(),
     BaseService.Interface,
-    TrafficListener,
-    LocalResolver,
-    Protector {
+    TrafficListener{
 
     companion object {
         var instance: VpnService? = null
@@ -118,7 +116,6 @@ class VpnService : BaseVpnService(),
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     override fun killProcesses() {
-        getTun()?.close()
         if (::conn.isInitialized) conn.close()
         super.killProcesses()
         persistAppStats()
