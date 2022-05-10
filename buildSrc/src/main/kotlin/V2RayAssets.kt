@@ -149,26 +149,4 @@ fun Project.downloadAssets() {
     val cacheFile = File(rootProject.buildDir, "v2ray-extra.zip")
     cacheFile.parentFile.mkdirs()
     cacheFile.deleteRecursively()
-
-    val extraDirectory = File(rootDir, "build/v2ray-core/release/extra")
-
-    if (!coreVersionFile.isFile || coreVersionFile.readText() != v2rayVersion) {
-        File(extraDirectory, "browserforwarder/index.js").inputStream().use { input ->
-            File(assets, "v2ray/index.js.xz").outputStream().use { out ->
-                XZOutputStream(out, LZMA2Options(9)).use {
-                    input.copyTo(it)
-                }
-            }
-        }
-
-        File(extraDirectory, "browserforwarder/index.html").inputStream().use {
-            File(assets, "v2ray/index.html").outputStream().use { out ->
-                it.copyTo(out)
-            }
-        }
-
-        cacheFile.delete()
-        coreVersionFile.writeText(v2rayVersion)
-    }
-
 }
