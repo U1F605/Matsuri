@@ -341,7 +341,6 @@ class VpnService : BaseVpnService(),
 
     fun persistAppStats() {
         if (!DataStore.appTrafficStatistics) return
-        val tun = getTun() ?: return
         appStats.clear()
         val toUpdate = mutableListOf<StatsEntity>()
         val all = SagerDatabase.statsDao.all().associateBy { it.packageName }
