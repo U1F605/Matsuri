@@ -3,7 +3,6 @@ package libcore
 import (
 	"context"
 	"libcore/comm"
-	"libcore/tun"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -20,7 +19,7 @@ import (
 // this file is for v2ray's udp
 
 func (instance *V2RayInstance) newDispatcherConn(ctx context.Context, destinationConn net.Destination, destinationV2ray net.Destination,
-	writeBack tun.WriteBack, timeout time.Duration, workerN int,
+	timeout time.Duration, workerN int,
 ) (*dispatcherConn, error) {
 	ctx, cancel := context.WithCancel(core.WithContext(ctx, instance.core))
 	link, err := instance.dispatcher.Dispatch(ctx, destinationV2ray)
@@ -33,7 +32,6 @@ func (instance *V2RayInstance) newDispatcherConn(ctx context.Context, destinatio
 		link:      link,
 		ctx:       ctx,
 		cancel:    cancel,
-		writeBack: writeBack,
 	}
 	c.timer = signal.CancelAfterInactivity(ctx, func() {
 		comm.CloseIgnore(c)
@@ -55,7 +53,6 @@ type dispatcherConn struct {
 	ctx    context.Context
 	cancel context.CancelFunc
 
-	writeBack tun.WriteBack //downlink
 
 	stats *myStats // traffic stats
 }
