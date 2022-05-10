@@ -6,4 +6,4 @@ rm -rf v2ray-core
 git clone --no-checkout https://github.com/U1F605/v2ray-core.git
 cd v2ray-core
 git checkout $COMMIT
-git
+go mod tidy
