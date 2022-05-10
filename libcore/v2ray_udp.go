@@ -93,11 +93,6 @@ func (c *dispatcherConn) handleDownlink() {
 				src.Address = net.AnyIP
 			}
 
-			n, err := c.writeBack(buffer.Bytes(), &net.UDPAddr{
-				IP:   src.Address.IP(),
-				Port: int(src.Port),
-			})
-
 			buffer.Release()
 
 			if err == nil {
