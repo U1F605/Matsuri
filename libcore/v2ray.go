@@ -154,8 +154,6 @@ func (p *simpleSekaiWrapper) LookupIP(network, host string) (ret []net.IP, err e
 	}()
 
 	select {
-	case <-ctx.Done():
-		return nil, newError(fmt.Sprintf("androidUnderlyingResolver: context cancelled! (sekai=%t)", isSekai))
 	case <-ok:
 		return
 	}
