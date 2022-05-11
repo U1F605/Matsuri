@@ -33,8 +33,6 @@ object Executable {
     private val EXECUTABLES = setOf(
         "libtrojan.so",
         "libtrojan-go.so",
-        "libnaive.so",
-        "libhysteria.so",
         "libpingtunnel.so",
         "libwg.so"
     )

@@ -357,15 +357,7 @@
     <string name="apps">应用</string>
     <string name="select_apps">选择应用</string>
     <string name="apps_message">%d 个应用</string>
-    <string name="hysteria_obfs">混淆密码</string>
-    <string name="hysteria_auth_type">认证类型</string>
-    <string name="hysteria_auth_payload">认证载荷</string>
-    <string name="hysteria_upload_mbps">最大上行 (Mbps)</string>
-    <string name="hysteria_download_mbps">最大下行 (Mbps)</string>
     <string name="experimental_settings">实验性</string>
-    <string name="hysteria_stream_receive_window">QUIC 流接收窗口</string>
-    <string name="hysteria_connection_receive_window">QUIC 连接接收窗口</string>
-    <string name="hysteria_disable_mtu_discovery">禁用路径最大传输单元发现</string>
     <string name="group_order">排序</string>
     <string name="group_order_origin">原始</string>
     <string name="group_order_by_name">以名称</string>
