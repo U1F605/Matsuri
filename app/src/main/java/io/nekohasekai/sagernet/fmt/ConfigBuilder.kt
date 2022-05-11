@@ -1074,7 +1074,6 @@ fun buildV2RayConfig(
             outboundTagsCurrent,
             outboundTagsAll,
             TAG_BYPASS,
-            it.observatory?.subjectSelector ?: HashSet(),
             dumpUid,
             alerts,
             tryDomains
