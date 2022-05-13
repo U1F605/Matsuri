@@ -543,7 +543,6 @@ class MainActivity : ThemedActivity(),
 
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val now = System.currentTimeMillis()
-        val expire = Libcore.getExpireTime() * 1000
         var text: String? = null
         if (now > expire) {
             text = getString(
