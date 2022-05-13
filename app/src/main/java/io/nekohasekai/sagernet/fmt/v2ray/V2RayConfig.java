@@ -833,28 +833,6 @@ public class V2RayConfig {
         }
     }
 
-    public ObservatoryObject observatory;
-
-    public static class ObservatoryObject {
-        public Set<String> subjectSelector;
-        public String probeUrl;
-        public String probeInterval;
-        public Boolean enableConcurrency;
-    }
-
-    public MultiObservatoryObject multiObservatory;
-
-    public static class MultiObservatoryObject {
-
-        public List<MultiObservatoryItem> observers;
-
-        public static class MultiObservatoryItem {
-            public String tag;
-            public ObservatoryObject settings;
-        }
-    }
-
-
     public void init() {
         if (inbounds != null) {
             for (InboundObject inbound : inbounds) inbound.init();
