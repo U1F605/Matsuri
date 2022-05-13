@@ -34,6 +34,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: app:assembleOssDebug
+          cache-disabled: true
       - name: prepare
         run: |
           APK=$(find app/build/outputs/apk -name '*arm64-v8a-debug.apk')
