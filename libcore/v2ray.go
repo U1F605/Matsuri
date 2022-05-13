@@ -2,7 +2,6 @@ package libcore
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"libcore/protect"
 	"log"
