@@ -60,8 +60,7 @@ class ProxyInstance(profile: ProxyEntity, val service: BaseService.Interface) : 
     fun sendInitStatuses() {
         val time = (System.currentTimeMillis() / 1000) - 300
     }
-
-    val updateTimer by lazy { Timer("Observatory Timer") }
+    
     val updateTasks by lazy { hashMapOf<Long, TimerTask>() }
 
     override fun close() {
