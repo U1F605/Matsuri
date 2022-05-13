@@ -8,7 +8,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 	_ "unsafe"
 
 	"github.com/sagernet/libping"
