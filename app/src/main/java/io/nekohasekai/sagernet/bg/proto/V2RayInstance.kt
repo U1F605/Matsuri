@@ -41,7 +41,6 @@ import io.nekohasekai.sagernet.fmt.trojan.buildTrojanGoConfig
 import io.nekohasekai.sagernet.fmt.trojan_go.TrojanGoBean
 import io.nekohasekai.sagernet.fmt.trojan_go.buildTrojanGoConfig
 import io.nekohasekai.sagernet.ktx.*
-import io.nekohasekai.sagernet.plugin.PluginManager
 import kotlinx.coroutines.*
 import libcore.Libcore
 import libcore.V2RayInstance
@@ -61,7 +60,6 @@ abstract class V2RayInstance(
     lateinit var v2rayPoint: V2RayInstance
     private lateinit var wsForwarder: WebView
 
-    val pluginPath = hashMapOf<String, PluginManager.InitResult>()
     val pluginConfigs = hashMapOf<Int, Pair<Int, String>>()
     val externalInstances = hashMapOf<Int, AbstractInstance>()
     open lateinit var processes: GuardedProcessPool
@@ -69,10 +67,6 @@ abstract class V2RayInstance(
     var closed by AtomicBoolean()
     fun isInitialized(): Boolean {
         return ::config.isInitialized
-    }
-
-    protected fun initPlugin(name: String): PluginManager.InitResult {
-        return pluginPath.getOrPut(name) { PluginManager.init(name)!! }
     }
 
     protected open fun buildConfig() {
