@@ -435,8 +435,6 @@ public class V2RayConfig {
         @Override
         protected Class<? extends OutboundConfigurationObject> getType() {
             switch (ctx.protocol.toLowerCase(Locale.ROOT)) {
-                case "blackhole":
-                    return BlackholeOutboundConfigurationObject.class;
                 case "dns":
                     return DNSOutboundConfigurationObject.class;
                 case "freedom":
@@ -461,18 +459,6 @@ public class V2RayConfig {
     }
 
     public interface OutboundConfigurationObject {
-    }
-
-    public static class BlackholeOutboundConfigurationObject implements OutboundConfigurationObject {
-
-        public ResponseObject response;
-        public Boolean keepConnection;
-        public Integer userLevel;
-
-        public static class ResponseObject {
-            public String type;
-        }
-
     }
 
     public static class DNSOutboundConfigurationObject implements OutboundConfigurationObject {

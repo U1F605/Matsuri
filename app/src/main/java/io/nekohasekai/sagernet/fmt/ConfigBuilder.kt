@@ -855,15 +855,6 @@ fun buildV2RayConfig(
             protocol = "freedom"
         })
 
-        outbounds.add(OutboundObject().apply {
-            tag = TAG_BLOCK
-            protocol = "blackhole"
-            /* settings = LazyOutboundConfigurationObject(this,
-                 BlackholeOutboundConfigurationObject().apply {
-                     keepConnection = true
-                 })*/
-        })
-
         if (!forTest) {
             inbounds.add(InboundObject().apply {
                 tag = TAG_DNS_IN
