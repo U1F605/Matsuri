@@ -64,7 +64,6 @@ const val IP6_LOCALHOST = "::1"
 class V2rayBuildResult(
     var config: String,
     var index: List<IndexEntity>,
-    var wsPort: Int,
     var outboundTags: List<String>,
     var outboundTagsCurrent: List<String>,
     var outboundTagsAll: Map<String, ProxyEntity>,
