@@ -69,7 +69,6 @@ class V2rayBuildResult(
     var outboundTagsCurrent: List<String>,
     var outboundTagsAll: Map<String, ProxyEntity>,
     var bypassTag: String,
-    var observatoryTags: Set<String>,
     val dumpUid: Boolean,
     val alerts: List<Pair<Int, String>>,
     val tryDomains: List<String>,
@@ -1075,7 +1074,6 @@ fun buildV2RayConfig(
             outboundTagsCurrent,
             outboundTagsAll,
             TAG_BYPASS,
-            it.observatory?.subjectSelector ?: HashSet(),
             dumpUid,
             alerts,
             tryDomains
