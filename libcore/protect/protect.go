@@ -51,12 +51,6 @@ func (dialer ProtectedDialer) Dial(ctx context.Context, source v2rayNet.Address,
 		if err != nil {
 			return nil, err
 		}
-	} else {
-		ip := destination.Address.IP()
-		if ip.IsLoopback() { // is it more effective
-			return v2rayDefaultDialer.Dial(ctx, source, destination, sockopt)
-		}
-		ips = append(ips, ip)
 	}
 
 	for i, ip := range ips {
