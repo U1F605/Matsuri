@@ -19,7 +19,6 @@
 
 package io.nekohasekai.sagernet.bg.proto
 
-import com.v2ray.core.app.observatory.OutboundStatus
 import io.nekohasekai.sagernet.bg.BaseService
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.ProxyEntity
