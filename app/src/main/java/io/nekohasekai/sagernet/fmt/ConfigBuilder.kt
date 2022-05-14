@@ -725,7 +725,6 @@ fun buildV2RayConfig(
                 }
 
                 pastEntity?.requireBean()?.apply {
-                    // don't loopback
                     if (currentDomainStrategy != "AsIs" && !serverAddress.isIpAddress()) {
                         domainListDNSDirect.add("full:$serverAddress")
                     }
