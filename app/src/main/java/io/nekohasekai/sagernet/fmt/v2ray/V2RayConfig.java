@@ -451,8 +451,6 @@ public class V2RayConfig {
                     return ShadowsocksOutboundConfigurationObject.class;
                 case "trojan":
                     return TrojanOutboundConfigurationObject.class;
-                case "loopback":
-                    return LoopbackOutboundConfigurationObject.class;
             }
             return null;
         }
@@ -601,12 +599,6 @@ public class V2RayConfig {
             public Integer level;
 
         }
-
-    }
-
-    public static class LoopbackOutboundConfigurationObject implements OutboundConfigurationObject {
-
-        public String inboundTag;
 
     }
 
