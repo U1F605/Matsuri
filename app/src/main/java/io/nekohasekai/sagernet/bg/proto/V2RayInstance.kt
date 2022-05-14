@@ -85,34 +85,7 @@ abstract class V2RayInstance(
         for ((chain) in config.index) {
             chain.entries.forEachIndexed { index, (port, profile) ->
                 when (val bean = profile.requireBean()) {
-                    is TrojanBean -> {
-                        when (DataStore.providerTrojan) {
-                            TrojanProvider.TROJAN -> {
-                                initPlugin("trojan-plugin")
-                                pluginConfigs[port] = profile.type to bean.buildTrojanConfig(
-                                    port
-                                )
-                            }
-                            TrojanProvider.TROJAN_GO -> {
-                                initPlugin("trojan-go-plugin")
-                                pluginConfigs[port] = profile.type to bean.buildTrojanGoConfig(port)
-                            }
-                        }
-                    }
-                    is TrojanGoBean -> {
-                        initPlugin("trojan-go-plugin")
-                        pluginConfigs[port] = profile.type to bean.buildTrojanGoConfig(port)
-                    }
-                    is NekoBean -> {
-                        // check if plugin binary can be loaded
-                        initPlugin(bean.plgId)
-
-                        // build config and check if succeed
-                        bean.updateAllConfig(port)
-                        if (bean.allConfig == null) {
-                            throw NekoPluginManager.PluginInternalException(bean.protocolId)
-                        }
-                    }
+                   
                 }
             }
         }
@@ -194,8 +167,6 @@ abstract class V2RayInstance(
                             if (any is String) {
                                 if (configs.containsKey(any)) {
                                     commands.add(configs[any]!!)
-                                } else if (any == "%exe%") {
-                                    commands.add(initPlugin(bean.plgId).path)
                                 } else {
                                     commands.add(any)
                                 }
