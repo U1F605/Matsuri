@@ -244,39 +244,6 @@ fun buildV2RayConfig(
             })
         }
 
-        if (requireTransproxy) {
-            inbounds.add(InboundObject().apply {
-                tag = TAG_TRANS
-                listen = bind
-                port = DataStore.transproxyPort
-                protocol = "dokodemo-door"
-                settings = LazyInboundConfigurationObject(this,
-                    DokodemoDoorInboundConfigurationObject().apply {
-                        network = "tcp,udp"
-                        followRedirect = true
-                    })
-                if (trafficSniffing || useFakeDns) {
-                    sniffing = InboundObject.SniffingObject().apply {
-                        enabled = true
-                        destOverride = when {
-                            useFakeDns && !trafficSniffing -> listOf("fakedns")
-                            useFakeDns -> listOf("fakedns", "http", "tls")
-                            else -> listOf("http", "tls")
-                        }
-                        metadataOnly = useFakeDns && !trafficSniffing
-                        routeOnly = !destinationOverride
-                    }
-                }
-                when (DataStore.transproxyMode) {
-                    1 -> streamSettings = StreamSettingsObject().apply {
-                        sockopt = StreamSettingsObject.SockoptObject().apply {
-                            tproxy = "tproxy"
-                        }
-                    }
-                }
-            })
-        }
-
         outbounds = mutableListOf()
 
         // init routing object
@@ -769,39 +736,6 @@ fun buildV2RayConfig(
 
                 currentOutbound.tag = tagOut
                 currentOutbound.domainStrategy = currentDomainStrategy
-
-                // External proxy need a dokodemo-door inbound to forward the traffic
-                // For external proxy software, their traffic must goes to v2ray-core to use protected fd.
-                if (bean.canMapping() && proxyEntity.needExternal()) {
-                    val mappingPort = mkPort()
-                    bean.finalAddress = LOCALHOST
-                    bean.finalPort = mappingPort
-
-                    inbounds.add(InboundObject().apply {
-                        listen = LOCALHOST
-                        port = mappingPort
-                        tag = "$chainTag-mapping-${proxyEntity.id}"
-                        protocol = "dokodemo-door"
-                        settings = LazyInboundConfigurationObject(this,
-                            DokodemoDoorInboundConfigurationObject().apply {
-                                address = bean.serverAddress
-                                network = bean.network()
-                                port = bean.serverPort
-                            })
-
-                        pastInboundTag = tag
-
-                        // no chain rule and not outbound, so need to set to direct
-                        if (bean.isFirstProfile) {
-                            routing.rules.add(RoutingObject.RuleObject().apply {
-                                type = "field"
-                                inboundTag = listOf(tag)
-                                outboundTag = TAG_DIRECT
-                            })
-                        }
-
-                    })
-                }
 
                 outbounds.add(currentOutbound)
                 chainOutbounds.add(currentOutbound)
