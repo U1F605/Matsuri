@@ -247,7 +247,7 @@ fun buildV2RayConfig(
         outbounds = mutableListOf()
 
         // init routing object
-        // set rules for wsUseBrowserForwarder and bypass LAN
+        // set rules for bypass LAN
         routing = RoutingObject().apply {
             domainStrategy = DataStore.domainStrategy
 
@@ -258,7 +258,7 @@ fun buildV2RayConfig(
             for (proxyEntity in proxies) {
                 val bean = proxyEntity.requireBean()
 
-                if (bean is StandardV2RayBean && bean.type == "ws" && bean.wsUseBrowserForwarder == true) {
+                if (bean is StandardV2RayBean && bean.type == "ws") {
                     val route = RoutingObject.RuleObject().apply {
                         type = "field"
                         outboundTag = TAG_DIRECT
@@ -571,13 +571,6 @@ fun buildV2RayConfig(
                                                 earlyDataHeaderName = bean.earlyDataHeaderName
                                             }
 
-                                            if (bean.wsUseBrowserForwarder) {
-                                                useBrowserForwarding = true
-                                                browserForwarder = BrowserForwarderObject().apply {
-                                                    listenAddr = LOCALHOST
-                                                    listenPort = mkPort()
-                                                }
-                                            }
                                         }
                                     }
                                     "http" -> {
@@ -994,7 +987,6 @@ fun buildV2RayConfig(
         V2rayBuildResult(
             gson.toJson(it),
             indexMap,
-            it.browserForwarder?.listenPort ?: 0,
             outboundTags,
             outboundTagsCurrent,
             outboundTagsAll,
