@@ -604,12 +604,6 @@ public class V2RayConfig {
 
     }
 
-    public static class LoopbackOutboundConfigurationObject implements OutboundConfigurationObject {
-
-        public String inboundTag;
-
-    }
-
     public TransportObject transport;
 
     public static class TransportObject {
@@ -742,7 +736,6 @@ public class V2RayConfig {
         public Map<String, String> headers;
         public Integer maxEarlyData;
         public String earlyDataHeaderName;
-        public Boolean useBrowserForwarding;
 
     }
 
@@ -790,15 +783,6 @@ public class V2RayConfig {
 
         public String ipPool;
         public Integer poolSize;
-
-    }
-
-    public BrowserForwarderObject browserForwarder;
-
-    public static class BrowserForwarderObject {
-
-        public String listenAddr;
-        public Integer listenPort;
 
     }
 
