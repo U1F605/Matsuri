@@ -737,39 +737,6 @@ fun buildV2RayConfig(
                 currentOutbound.tag = tagOut
                 currentOutbound.domainStrategy = currentDomainStrategy
 
-                // External proxy need a dokodemo-door inbound to forward the traffic
-                // For external proxy software, their traffic must goes to v2ray-core to use protected fd.
-                if (bean.canMapping() && proxyEntity.needExternal()) {
-                    val mappingPort = mkPort()
-                    bean.finalAddress = LOCALHOST
-                    bean.finalPort = mappingPort
-
-                    inbounds.add(InboundObject().apply {
-                        listen = LOCALHOST
-                        port = mappingPort
-                        tag = "$chainTag-mapping-${proxyEntity.id}"
-                        protocol = "dokodemo-door"
-                        settings = LazyInboundConfigurationObject(this,
-                            DokodemoDoorInboundConfigurationObject().apply {
-                                address = bean.serverAddress
-                                network = bean.network()
-                                port = bean.serverPort
-                            })
-
-                        pastInboundTag = tag
-
-                        // no chain rule and not outbound, so need to set to direct
-                        if (bean.isFirstProfile) {
-                            routing.rules.add(RoutingObject.RuleObject().apply {
-                                type = "field"
-                                inboundTag = listOf(tag)
-                                outboundTag = TAG_DIRECT
-                            })
-                        }
-
-                    })
-                }
-
                 outbounds.add(currentOutbound)
                 chainOutbounds.add(currentOutbound)
                 pastOutbound = currentOutbound
