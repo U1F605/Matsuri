@@ -537,23 +537,7 @@ class MainActivity : ThemedActivity(),
 
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val now = System.currentTimeMillis()
-        val expire = Libcore.getExpireTime() * 1000
-        val dateExpire = Date(expire)
-        val build = Libcore.getBuildTime() * 1000
-        val dateBuild = Date(build)
-
         var text: String? = null
-        if (now > expire) {
-            text = getString(
-                R.string.please_update_force, sdf.format(dateBuild), sdf.format(dateExpire)
-            )
-        } else if (now > (expire - 2592000000)) {
-            // 30 days remind :D
-            text = getString(
-                R.string.please_update, sdf.format(dateBuild), sdf.format(dateExpire)
-            )
-        }
-
 
         if (text != null) {
             MaterialAlertDialogBuilder(this@MainActivity).setTitle(R.string.insecure)
