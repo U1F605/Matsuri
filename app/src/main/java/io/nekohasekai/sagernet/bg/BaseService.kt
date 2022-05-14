@@ -40,7 +40,6 @@ import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.SagerDatabase
 import io.nekohasekai.sagernet.fmt.TAG_SOCKS
 import io.nekohasekai.sagernet.ktx.*
-import io.nekohasekai.sagernet.plugin.PluginManager
 import io.nekohasekai.sagernet.utils.DefaultNetworkListener
 import io.nekohasekai.sagernet.utils.PackageCache
 import kotlinx.coroutines.*
@@ -530,10 +529,6 @@ class BaseService {
                 } catch (_: CancellationException) { // if the job was cancelled, it is canceller's responsibility to call stopRunner
                 } catch (_: UnknownHostException) {
                     stopRunner(false, getString(R.string.invalid_server))
-                } catch (e: PluginManager.PluginNotFoundException) {
-                    Logs.d(e.readableMessage)
-                    data.binder.missingPlugin(e.plugin)
-                    stopRunner(false, null)
                 } catch (e: ShadowsocksPluginPluginManager.PluginNotFoundException) {
                     Logs.d(e.readableMessage)
                     data.binder.missingPlugin("shadowsocks-" + e.plugin)
