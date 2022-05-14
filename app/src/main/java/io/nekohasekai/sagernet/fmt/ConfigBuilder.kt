@@ -244,39 +244,6 @@ fun buildV2RayConfig(
             })
         }
 
-        if (requireTransproxy) {
-            inbounds.add(InboundObject().apply {
-                tag = TAG_TRANS
-                listen = bind
-                port = DataStore.transproxyPort
-                protocol = "dokodemo-door"
-                settings = LazyInboundConfigurationObject(this,
-                    DokodemoDoorInboundConfigurationObject().apply {
-                        network = "tcp,udp"
-                        followRedirect = true
-                    })
-                if (trafficSniffing || useFakeDns) {
-                    sniffing = InboundObject.SniffingObject().apply {
-                        enabled = true
-                        destOverride = when {
-                            useFakeDns && !trafficSniffing -> listOf("fakedns")
-                            useFakeDns -> listOf("fakedns", "http", "tls")
-                            else -> listOf("http", "tls")
-                        }
-                        metadataOnly = useFakeDns && !trafficSniffing
-                        routeOnly = !destinationOverride
-                    }
-                }
-                when (DataStore.transproxyMode) {
-                    1 -> streamSettings = StreamSettingsObject().apply {
-                        sockopt = StreamSettingsObject.SockoptObject().apply {
-                            tproxy = "tproxy"
-                        }
-                    }
-                }
-            })
-        }
-
         outbounds = mutableListOf()
 
         // init routing object
