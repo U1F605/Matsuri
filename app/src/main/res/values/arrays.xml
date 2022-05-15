@@ -477,14 +477,6 @@
         <item>zero</item>
     </string-array>
 
-    <string-array name="vless_encryption_entry">
-        <item>NONE</item>
-    </string-array>
-
-    <string-array name="vless_encryption_value">
-        <item>none</item>
-    </string-array>
-
     <string-array name="transport_layer_encryption_entry">
         <item>NONE</item>
         <item>TLS</item>

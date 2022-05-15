@@ -222,8 +222,6 @@ public class V2RayConfig {
                     return SocksInboundConfigurationObject.class;
                 case "vmess":
                     return VMessInboundConfigurationObject.class;
-                case "vless":
-                    return VLESSInboundConfigurationObject.class;
                 case "shadowsocks":
                     return ShadowsocksInboundConfigurationObject.class;
                 case "trojan":
@@ -311,31 +309,6 @@ public class V2RayConfig {
         public static class DetourObject {
 
             public String to;
-
-        }
-
-    }
-
-    public static class VLESSInboundConfigurationObject implements InboundConfigurationObject {
-
-        public List<ClientObject> clients;
-        public String decryption;
-        public List<FallbackObject> fallbacks;
-
-        public static class ClientObject {
-
-            public String id;
-            public Integer level;
-            public String email;
-
-        }
-
-        public static class FallbackObject {
-
-            public String alpn;
-            public String path;
-            public Integer dest;
-            public Integer xver;
 
         }
 
@@ -445,8 +418,6 @@ public class V2RayConfig {
                     return SocksOutboundConfigurationObject.class;
                 case "vmess":
                     return VMessOutboundConfigurationObject.class;
-                case "vless":
-                    return VLESSOutboundConfigurationObject.class;
                 case "shadowsocks":
                     return ShadowsocksOutboundConfigurationObject.class;
                 case "trojan":
@@ -562,29 +533,6 @@ public class V2RayConfig {
         public String plugin;
         public String pluginOpts;
         public List<String> pluginArgs;
-
-    }
-
-    public static class VLESSOutboundConfigurationObject implements OutboundConfigurationObject {
-
-        public List<ServerObject> vnext;
-        public String packetEncoding;
-
-        public static class ServerObject {
-
-            public String address;
-            public Integer port;
-            public List<UserObject> users;
-
-            public static class UserObject {
-
-                public String id;
-                public String encryption;
-                public Integer level;
-
-            }
-
-        }
 
     }
 
