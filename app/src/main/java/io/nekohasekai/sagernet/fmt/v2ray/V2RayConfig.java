@@ -222,8 +222,6 @@ public class V2RayConfig {
                     return SocksInboundConfigurationObject.class;
                 case "vmess":
                     return VMessInboundConfigurationObject.class;
-                case "vless":
-                    return VLESSInboundConfigurationObject.class;
                 case "shadowsocks":
                     return ShadowsocksInboundConfigurationObject.class;
                 case "trojan":
