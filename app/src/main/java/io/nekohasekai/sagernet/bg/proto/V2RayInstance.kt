@@ -216,39 +216,6 @@ abstract class V2RayInstance(
 
         v2rayPoint.start()
 
-        if (config.wsPort > 0) {
-            val url = "http://$LOCALHOST:" + (config.wsPort) + "/"
-
-            runOnMainDispatcher {
-                wsForwarder = WebView(context)
-                wsForwarder.settings.javaScriptEnabled = true
-                wsForwarder.webViewClient = object : WebViewClient() {
-                    override fun onReceivedError(
-                        view: WebView?,
-                        request: WebResourceRequest?,
-                        error: WebResourceError?,
-                    ) {
-                        Logs.d("WebView load r: $error")
-
-                        runOnMainDispatcher {
-                            wsForwarder.loadUrl("about:blank")
-
-                            delay(1000L)
-                            wsForwarder.loadUrl(url)
-                        }
-                    }
-
-                    override fun onPageFinished(view: WebView, url: String) {
-                        super.onPageFinished(view, url)
-
-                        Logs.d("WebView loaded: ${view.title}")
-
-                    }
-                }
-                wsForwarder.loadUrl(url)
-            }
-        }
-
     }
 
     @Suppress("EXPERIMENTAL_API_USAGE")
