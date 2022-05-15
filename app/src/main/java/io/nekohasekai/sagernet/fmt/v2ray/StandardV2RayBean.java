@@ -154,7 +154,6 @@ public abstract class StandardV2RayBean extends AbstractBean {
 
     // --------------------------------------- //
 
-    public Boolean wsUseBrowserForwarder;
     public Boolean allowInsecure;
     public Integer packetEncoding; // 1:packet 2:xudp
 
@@ -180,7 +179,6 @@ public abstract class StandardV2RayBean extends AbstractBean {
 
         if (JavaUtil.isNullOrBlank(grpcServiceName)) grpcServiceName = "";
         if (wsMaxEarlyData == null) wsMaxEarlyData = 0;
-        if (wsUseBrowserForwarder == null) wsUseBrowserForwarder = false;
         if (certificates == null) certificates = "";
         if (pinnedPeerCertificateChainSha256 == null) pinnedPeerCertificateChainSha256 = "";
         if (earlyDataHeaderName == null) earlyDataHeaderName = "";
@@ -214,7 +212,6 @@ public abstract class StandardV2RayBean extends AbstractBean {
                 output.writeString(host);
                 output.writeString(path);
                 output.writeInt(wsMaxEarlyData);
-                output.writeBoolean(wsUseBrowserForwarder);
                 output.writeString(earlyDataHeaderName);
                 break;
             }
@@ -279,7 +276,6 @@ public abstract class StandardV2RayBean extends AbstractBean {
                 host = input.readString();
                 path = input.readString();
                 wsMaxEarlyData = input.readInt();
-                wsUseBrowserForwarder = input.readBoolean();
                 if (version >= 2) {
                     earlyDataHeaderName = input.readString();
                 }
@@ -331,7 +327,6 @@ public abstract class StandardV2RayBean extends AbstractBean {
     public void applyFeatureSettings(AbstractBean other) {
         if (!(other instanceof StandardV2RayBean)) return;
         StandardV2RayBean bean = ((StandardV2RayBean) other);
-        bean.wsUseBrowserForwarder = wsUseBrowserForwarder;
         bean.allowInsecure = allowInsecure;
     }
 
