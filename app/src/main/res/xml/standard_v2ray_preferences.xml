@@ -129,12 +129,6 @@
             app:key="serverEarlyDataHeaderName"
             app:title="@string/early_data_header_name"
             app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreference
-            app:icon="@drawable/ic_baseline_texture_24"
-            app:key="serverWsBrowserForwarding"
-            app:summary="@string/ws_browser_forwarding_sum"
-            app:title="@string/ws_browser_forwarding" />
     </PreferenceCategory>
 
     <PreferenceCategory
