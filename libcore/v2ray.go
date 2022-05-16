@@ -132,8 +132,6 @@ type simpleSekaiWrapper struct {
 }
 
 func (p *simpleSekaiWrapper) LookupIP(network, host string) (ret []net.IP, err error) {
-	isSekai := p.sekaiResolver != nil
-
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	ok := make(chan interface{})
 	defer cancel()
@@ -147,28 +145,7 @@ func (p *simpleSekaiWrapper) LookupIP(network, host string) (ret []net.IP, err e
 			}
 			close(ok)
 		}()
-
-		if isSekai {
-			var str string
-			str, err = p.sekaiResolver.LookupIP(network, host)
-			// java -> go
-			if err != nil {
-				rcode, err2 := strconv.Atoi(err.Error())
-				if err2 == nil {
-					err = dns_feature.RCodeError(rcode)
-				}
-				return
-			} else if str == "" {
-				err = dns_feature.ErrEmptyResponse
-				return
-			}
-			ret = make([]net.IP, 0)
-			for _, ip := range strings.Split(str, ",") {
-				ret = append(ret, net.ParseIP(ip))
-			}
-		} else {
-			ret, err = p.androidResolver.LookupIP(context.Background(), network, host)
-		}
+		ret, err = p.androidResolver.LookupIP(context.Background(), network, host)
 	}()
 
 	select {
