@@ -128,7 +128,6 @@ var dc dns.Client
 
 type simpleSekaiWrapper struct {
 	androidResolver *net.Resolver
-	sekaiResolver   LocalResolver // passed from java (only when VPNService)
 }
 
 func (p *simpleSekaiWrapper) LookupIP(network, host string) (ret []net.IP, err error) {
@@ -150,7 +149,7 @@ func (p *simpleSekaiWrapper) LookupIP(network, host string) (ret []net.IP, err e
 
 	select {
 	case <-ctx.Done():
-		return nil, newError(fmt.Sprintf("androidUnderlyingResolver: context cancelled! (sekai=%t)", isSekai))
+		return
 	case <-ok:
 		return
 	}
