@@ -5,4 +5,3 @@ cd ..
 rm -rf v2ray-core
 git clone https://github.com/matsuridayo/v2ray-core.git
 cd v2ray-core
-git checkout $COMMIT
