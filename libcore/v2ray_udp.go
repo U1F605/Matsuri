@@ -3,7 +3,6 @@ package libcore
 import (
 	"context"
 	"libcore/comm"
-	"libcore/tun"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -33,7 +32,6 @@ func (instance *V2RayInstance) newDispatcherConn(ctx context.Context, destinatio
 		link:      link,
 		ctx:       ctx,
 		cancel:    cancel,
-		writeBack: writeBack,
 	}
 	c.timer = signal.CancelAfterInactivity(ctx, func() {
 		comm.CloseIgnore(c)
@@ -54,8 +52,6 @@ type dispatcherConn struct {
 
 	ctx    context.Context
 	cancel context.CancelFunc
-
-	writeBack tun.WriteBack //downlink
 
 	stats *myStats // traffic stats
 }
