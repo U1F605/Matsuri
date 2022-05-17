@@ -190,7 +190,7 @@ class BaseService {
         private suspend fun loopStats() {
             var lastQueryTime = 0L
             val tun = (data?.proxy?.service as? VpnService)?.getTun() ?: return
-            if (!tun.trafficStatsEnabled) return
+            return
 
             while (true) {
                 val delayMs = statsListeners.values.minOrNull()
@@ -200,7 +200,6 @@ class BaseService {
                 lastQueryTime = queryTime
 
                 appStats.clear()
-                tun.readAppTraffics(this)
 
                 val statsList = AppStatsList(appStats.map {
                     val uid = if (it.uid >= 10000) it.uid else 1000
