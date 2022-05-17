@@ -189,9 +189,8 @@ class BaseService {
 
         private suspend fun loopStats() {
             var lastQueryTime = 0L
-            val tun = (data?.proxy?.service as? VpnService)?.getTun() ?: return
             return
-
+            
             while (true) {
                 val delayMs = statsListeners.values.minOrNull()
                 if (delayMs == 0L) return
