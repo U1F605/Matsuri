@@ -275,28 +275,6 @@ class VpnService : BaseVpnService(),
         active = true   // possible race condition here?
         if (Build.VERSION.SDK_INT >= 29) builder.setMetered(metered)
         conn = builder.establish() ?: throw NullConnectionException()
-
-        val config = TunConfig().apply {
-            fileDescriptor = conn.fd
-            mtu = DataStore.mtu
-            v2Ray = data.proxy!!.v2rayPoint
-            iPv6Mode = ipv6Mode
-            implementation = DataStore.tunImplementation
-            sniffing = DataStore.trafficSniffing
-            overrideDestination = DataStore.destinationOverride
-            fakeDNS = DataStore.enableFakeDns
-            debug = DataStore.enableLog
-            dumpUID = data.proxy!!.config.dumpUid
-            trafficStats = DataStore.appTrafficStatistics
-            pCap = DataStore.enablePcap
-            errorHandler = ErrorHandler {
-                stopRunner(false, it)
-            }
-            localResolver = this@VpnService
-            fdProtector = this@VpnService
-        }
-
-        tun = Libcore.newTun2ray(config)
     }
 
     // this is sekaiResolver
