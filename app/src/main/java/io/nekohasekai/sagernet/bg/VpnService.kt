@@ -115,7 +115,6 @@ class VpnService : BaseVpnService(),
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     override fun killProcesses() {
-        getTun()?.close()
         if (::conn.isInitialized) conn.close()
         super.killProcesses()
         persistAppStats()
@@ -277,7 +276,6 @@ class VpnService : BaseVpnService(),
 
     fun persistAppStats() {
         if (!DataStore.appTrafficStatistics) return
-        val tun = getTun() ?: return
         appStats.clear()
         val toUpdate = mutableListOf<StatsEntity>()
         val all = SagerDatabase.statsDao.all().associateBy { it.packageName }
