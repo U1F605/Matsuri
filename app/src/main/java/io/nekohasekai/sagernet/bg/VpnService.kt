@@ -59,9 +59,7 @@ import android.net.VpnService as BaseVpnService
 
 class VpnService : BaseVpnService(),
     BaseService.Interface,
-    TrafficListener,
-    LocalResolver,
-    Protector {
+    TrafficListener{
 
     companion object {
         var instance: VpnService? = null
@@ -84,12 +82,6 @@ class VpnService : BaseVpnService(),
     }
 
     lateinit var conn: ParcelFileDescriptor
-    private lateinit var tun: Tun2ray
-    fun getTun(): Tun2ray? {
-        if (!::tun.isInitialized) return null
-        return tun
-    }
-
     private var active = false
     private var metered = false
 
@@ -123,7 +115,6 @@ class VpnService : BaseVpnService(),
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     override fun killProcesses() {
-        getTun()?.close()
         if (::conn.isInitialized) conn.close()
         super.killProcesses()
         persistAppStats()
@@ -275,92 +266,6 @@ class VpnService : BaseVpnService(),
         active = true   // possible race condition here?
         if (Build.VERSION.SDK_INT >= 29) builder.setMetered(metered)
         conn = builder.establish() ?: throw NullConnectionException()
-
-        val config = TunConfig().apply {
-            fileDescriptor = conn.fd
-            mtu = DataStore.mtu
-            v2Ray = data.proxy!!.v2rayPoint
-            iPv6Mode = ipv6Mode
-            implementation = DataStore.tunImplementation
-            sniffing = DataStore.trafficSniffing
-            overrideDestination = DataStore.destinationOverride
-            fakeDNS = DataStore.enableFakeDns
-            debug = DataStore.enableLog
-            dumpUID = data.proxy!!.config.dumpUid
-            trafficStats = DataStore.appTrafficStatistics
-            pCap = DataStore.enablePcap
-            errorHandler = ErrorHandler {
-                stopRunner(false, it)
-            }
-            localResolver = this@VpnService
-            fdProtector = this@VpnService
-        }
-
-        tun = Libcore.newTun2ray(config)
-    }
-
-    // this is sekaiResolver
-    override fun lookupIP(network: String, domain: String): String {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            return runBlocking {
-                suspendCoroutine { continuation ->
-                    val signal = CancellationSignal()
-                    val callback = object : DnsResolver.Callback<Collection<InetAddress>> {
-                        @Suppress("ThrowableNotThrown")
-                        override fun onAnswer(answer: Collection<InetAddress>, rcode: Int) {
-                            // libcore/v2ray.go
-                            when {
-                                answer.isNotEmpty() -> {
-                                    continuation.tryResume((answer as Collection<InetAddress?>).mapNotNull { it?.hostAddress }
-                                        .joinToString(","))
-                                }
-                                rcode == 0 -> {
-                                    // fuck AAAA no record
-                                    // features/dns/client.go
-                                    continuation.tryResume("")
-                                }
-                                else -> {
-                                    // Need return rcode
-                                    // proxy/dns/dns.go
-                                    continuation.tryResumeWithException(Exception("$rcode"))
-                                }
-                            }
-                        }
-
-                        override fun onError(error: DnsResolver.DnsException) {
-                            continuation.tryResumeWithException(error)
-                        }
-                    }
-                    val type = when {
-                        network.endsWith("4") -> DnsResolver.TYPE_A
-                        network.endsWith("6") -> DnsResolver.TYPE_AAAA
-                        else -> null
-                    }
-                    if (type != null) {
-                        DnsResolver.getInstance().query(
-                            underlyingNetwork,
-                            domain,
-                            type,
-                            DnsResolver.FLAG_EMPTY,
-                            Dispatchers.IO.asExecutor(),
-                            signal,
-                            callback
-                        )
-                    } else {
-                        DnsResolver.getInstance().query(
-                            underlyingNetwork,
-                            domain,
-                            DnsResolver.FLAG_EMPTY,
-                            Dispatchers.IO.asExecutor(),
-                            signal,
-                            callback
-                        )
-                    }
-                }
-            }
-        } else {
-            throw Exception("114514")
-        }
     }
 
     val appStats = mutableListOf<AppStats>()
@@ -371,9 +276,7 @@ class VpnService : BaseVpnService(),
 
     fun persistAppStats() {
         if (!DataStore.appTrafficStatistics) return
-        val tun = getTun() ?: return
         appStats.clear()
-        tun.readAppTraffics(this)
         val toUpdate = mutableListOf<StatsEntity>()
         val all = SagerDatabase.statsDao.all().associateBy { it.packageName }
         for (stats in appStats) {
