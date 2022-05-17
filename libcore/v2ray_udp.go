@@ -94,9 +94,6 @@ func (c *dispatcherConn) handleDownlink() {
 
 			buffer.Release()
 
-			if c.stats != nil {
-				atomic.AddUint64(c.stats.downlink, uint64(n))
-			}
 			return
 		}
 	}
