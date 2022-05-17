@@ -311,7 +311,6 @@ class BaseService {
         override fun resetTrafficStats() {
             runOnDefaultDispatcher {
                 SagerDatabase.statsDao.deleteAll()
-                (data?.proxy?.service as? VpnService)?.getTun()?.resetAppTraffics()
                 val empty = AppStatsList(emptyList())
                 broadcast { item ->
                     if (statsListeners.contains(item.asBinder())) {
@@ -329,10 +328,6 @@ class BaseService {
         fun missingPlugin(pluginName: String) = launch {
             val profileName = profileName
             broadcast { it.missingPlugin(profileName, pluginName) }
-        }
-
-        override fun getTrafficStatsEnabled(): Boolean {
-            return (data?.proxy?.service as? VpnService)?.getTun()?.trafficStatsEnabled ?: false
         }
 
         override fun close() {
