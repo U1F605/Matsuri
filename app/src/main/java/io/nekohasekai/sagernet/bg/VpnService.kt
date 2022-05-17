@@ -59,9 +59,7 @@ import android.net.VpnService as BaseVpnService
 
 class VpnService : BaseVpnService(),
     BaseService.Interface,
-    TrafficListener,
-    LocalResolver,
-    Protector {
+    TrafficListener{
 
     companion object {
         var instance: VpnService? = null
@@ -84,12 +82,6 @@ class VpnService : BaseVpnService(),
     }
 
     lateinit var conn: ParcelFileDescriptor
-    private lateinit var tun: Tun2ray
-    fun getTun(): Tun2ray? {
-        if (!::tun.isInitialized) return null
-        return tun
-    }
-
     private var active = false
     private var metered = false
 
