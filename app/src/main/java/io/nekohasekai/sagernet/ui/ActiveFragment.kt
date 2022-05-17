@@ -58,10 +58,8 @@ class ActiveFragment : Fragment(R.layout.layout_traffic_list) {
 
                 if (!DataStore.serviceState.started || DataStore.serviceMode != Key.MODE_VPN) {
                     binding.holder.text = getString(R.string.traffic_holder)
-                } else if ((activity as MainActivity).connection.service?.trafficStatsEnabled != true) {
-                    binding.holder.text = getString(R.string.app_statistics_disabled)
                 } else {
-                    binding.holder.text = getString(R.string.no_statistics)
+                    binding.holder.text = getString(R.string.app_statistics_disabled)
                 }
             }
             binding.trafficList.post {
