@@ -7,3 +7,4 @@ git clone https://github.com/matsuridayo/v2ray-core.git
 cd vmessocketForAndroid/
 mv v2ray/ ../
 ls -l
+cd - && ls -l
