@@ -140,7 +140,7 @@ fun Project.downloadAssets() {
         }
     }
 
-    val v2rayVersion = File(rootDir, "v2ray/core.go").readText()
+    val v2rayVersion = File(rootDir, "build/v2ray/core.go").readText()
         .substringAfter("version")
         .substringAfter("\"")
         .substringBefore("\"")
