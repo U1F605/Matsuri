@@ -5,3 +5,4 @@ pwd
 ls -l
 git clone https://github.com/matsuridayo/v2ray-core.git
 mv vmessocketForAndroid/v2ray/ vmessocketForAndroid/
+ls -l
