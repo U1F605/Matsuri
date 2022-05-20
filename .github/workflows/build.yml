@@ -1,0 +1,55 @@
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag'
+        required: true
+  release:
+    types: [ published ]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ^1.18
+      - name: Native Build
+        run: | 
+          go install -v golang.org/x/mobile/cmd/gomobile@latest
+          go install -v golang.org/x/mobile/cmd/gobind@latest
+          gomobile init
+          chmod +x * -R
+          ./buildScript/lib/core.sh
+          cd libcore/
+          gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
+          proj=../app/libs
+          mkdir -p $proj
+          cp -f libcore.aar $proj
+          echo ">> install $(realpath $proj)/libcore.aar"
+      - name: Debug build
+        run: |
+          ./run init action library
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: app:assembleOssDebug
+          cache-disabled: true
+      - name: prepare
+        run: |
+          APK=$(find app/build/outputs/apk -name '*arm64-v8a-debug.apk')
+          echo "APK=$APK" >> $GITHUB_ENV
+      - uses: actions/upload-artifact@v3
+        with:
+          name: APK
+          path: ${{ env.APK }}
+      - uses: svenstaro/upload-release-action@v2
+        if: github.event_name == 'release'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ${{ env.APK }}
+          tag: ${{ github.ref }}
