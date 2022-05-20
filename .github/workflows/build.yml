@@ -20,7 +20,7 @@ jobs:
           go-version: ^1.18
       - name: Native Build
         run: | 
-          grep -rni "assemble"
+          grep -rni "assembleoss"
           go install -v golang.org/x/mobile/cmd/gomobile@latest
           go install -v golang.org/x/mobile/cmd/gobind@latest
           gomobile init
@@ -37,7 +37,7 @@ jobs:
           ./run init action library
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: app:assembleOssDebug
+          arguments: app:assembleDebug
           cache-disabled: true
       - name: prepare
         run: |
