@@ -31,7 +31,7 @@ jobs:
           mkdir -p $proj
           cp -f libcore.aar $proj
           echo ">> install $(realpath $proj)/libcore.aar"
-          ./run init action library
+          ../run init action library
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: app:assembleOssDebug
