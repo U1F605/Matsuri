@@ -73,7 +73,6 @@ import (
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/headers/tls"
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/headers/utp"
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/headers/wechat"
-	_ "github.com/v2fly/v2ray-core/v5/transport/internet/headers/wireguard"
 
 	// Geo loaders
 	_ "github.com/v2fly/v2ray-core/v5/infra/conf/geodata/memconservative"
