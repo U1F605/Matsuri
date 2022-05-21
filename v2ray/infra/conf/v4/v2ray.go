@@ -41,7 +41,6 @@ var (
 		"trojan":      func() interface{} { return new(TrojanClientConfig) },
 		"dns":         func() interface{} { return new(DNSOutboundConfig) },
 		"loopback":    func() interface{} { return new(LoopbackConfig) },
-		"ssh":         func() interface{} { return new(SSHClientConfig) },
 	}, "protocol", "settings")
 )
 
