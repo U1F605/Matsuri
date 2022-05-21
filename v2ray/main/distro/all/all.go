@@ -12,7 +12,6 @@ import (
 	_ "github.com/v2fly/v2ray-core/v5/app/router"
 	_ "github.com/v2fly/v2ray-core/v5/app/stats"
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/tagged/taggedimpl"
-	_ "github.com/v2fly/v2ray-core/v5/app/observatory"
 	_ "github.com/v2fly/v2ray-core/v5/proxy/blackhole"
 	_ "github.com/v2fly/v2ray-core/v5/proxy/dns"
 	_ "github.com/v2fly/v2ray-core/v5/proxy/dokodemo"
