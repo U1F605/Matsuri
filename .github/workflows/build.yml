@@ -23,8 +23,6 @@ jobs:
           go install -v golang.org/x/mobile/cmd/gomobile@latest
           go install -v golang.org/x/mobile/cmd/gobind@latest
           gomobile init
-          chmod +x * -R
-          ./buildScript/lib/core.sh
           cd libcore/
           gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
           proj=../app/libs
@@ -33,6 +31,7 @@ jobs:
           echo ">> install $(realpath $proj)/libcore.aar"
       - name: Debug build
         run: |
+          chmod +x * -R
           ./run init action library
       - uses: gradle/gradle-build-action@v2
         with:
