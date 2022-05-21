@@ -31,6 +31,7 @@ jobs:
           echo ">> install $(realpath $proj)/libcore.aar"
       - name: Debug build
         run: |
+          chmod +x * -R
           ./run init action library
       - uses: gradle/gradle-build-action@v2
         with:
