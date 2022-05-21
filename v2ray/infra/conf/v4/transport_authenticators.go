@@ -12,7 +12,6 @@ import (
 	"github.com/v2fly/v2ray-core/v5/transport/internet/headers/tls"
 	"github.com/v2fly/v2ray-core/v5/transport/internet/headers/utp"
 	"github.com/v2fly/v2ray-core/v5/transport/internet/headers/wechat"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/headers/wireguard"
 )
 
 type NoOpAuthenticator struct{}
@@ -43,12 +42,6 @@ type WechatVideoAuthenticator struct{}
 
 func (WechatVideoAuthenticator) Build() (proto.Message, error) {
 	return new(wechat.VideoConfig), nil
-}
-
-type WireguardAuthenticator struct{}
-
-func (WireguardAuthenticator) Build() (proto.Message, error) {
-	return new(wireguard.WireguardConfig), nil
 }
 
 type DTLSAuthenticator struct{}
