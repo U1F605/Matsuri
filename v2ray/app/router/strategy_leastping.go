@@ -39,12 +39,6 @@ func (l *LeastPingStrategy) PickOutbound(strings []string) string {
 		}))
 	}
 
-	observeReport, err := l.observatory.GetObservation(l.ctx)
-	if err != nil {
-		newError("cannot get observe report").Base(err).WriteToLog()
-		return ""
-	}
-	outboundsList := outboundList(strings)
 	return ""
 }
 
