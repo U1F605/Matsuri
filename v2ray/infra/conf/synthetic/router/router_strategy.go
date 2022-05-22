@@ -3,7 +3,6 @@ package router
 import (
 	"github.com/golang/protobuf/proto"
 
-	"github.com/v2fly/v2ray-core/v5/app/observatory/burst"
 	"github.com/v2fly/v2ray-core/v5/app/router"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/duration"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/loader"
@@ -38,8 +37,6 @@ type strategyLeastLoadConfig struct {
 	MaxRTT duration.Duration `json:"maxRTT,omitempty"`
 	// acceptable failure rate
 	Tolerance float64 `json:"tolerance,omitempty"`
-
-	ObserverTag string `json:"observerTag,omitempty"`
 }
 
 // HealthCheckSettings holds settings for health Checker
@@ -89,10 +86,6 @@ func (v *strategyLeastLoadConfig) Build() (proto.Message, error) {
 		config.Baselines = append(config.Baselines, int64(b))
 	}
 	return config, nil
-}
-
-type strategyLeastPingConfig struct {
-	ObserverTag string `json:"observerTag,omitempty"`
 }
 
 func (s strategyLeastPingConfig) Build() (proto.Message, error) {
