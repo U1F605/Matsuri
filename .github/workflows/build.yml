@@ -33,6 +33,7 @@ jobs:
         run: |
           chmod +x * -R
           ./run init action library
+          touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=true" >> ~/.gradle/gradle.properties
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: app:assembleOssDebug
