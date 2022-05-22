@@ -143,22 +143,6 @@ func (l *LeastLoadStrategy) getNodes(candidates []string, maxRTT time.Duration) 
 		}))
 	}
 
-	if l.settings.ObserverTag == "" {
-		observeResult, err := l.observer.GetObservation(l.ctx)
-		if err != nil {
-			newError("cannot get observation").Base(err).WriteToLog()
-			return make([]*node, 0)
-		}
-		result = observeResult
-	} else {
-		observeResult, err := common.Must2(l.observer.(features.TaggedFeatures).GetFeaturesByTag(l.settings.ObserverTag)).(extension.Observatory).GetObservation(l.ctx)
-		if err != nil {
-			newError("cannot get observation").Base(err).WriteToLog()
-			return make([]*node, 0)
-		}
-		result = observeResult
-	}
-
 	var ret []*node
 
 	leastloadSort(ret)
