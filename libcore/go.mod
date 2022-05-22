@@ -2,8 +2,6 @@ module libcore
 
 go 1.18
 
-replace gvisor.dev/gvisor => github.com/sagernet/gvisor v0.0.0-20220213143053-df431bee78e3
-
 replace github.com/v2fly/v2ray-core/v5 v5.0.0 => ../v2ray
 
 require (
@@ -32,7 +30,6 @@ require (
 	github.com/geeksbaek/seed v0.0.0-20180909040025-2a7f5fb92e22 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/google/btree v1.0.1 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/jhump/protoreflect v1.12.0 // indirect
 	github.com/kierdavis/cfb8 v0.0.0-20180105024805-3a17c36ee2f8 // indirect
@@ -67,16 +64,11 @@ require (
 	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect
 	golang.org/x/text v0.3.7 // indirect
-	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
 	golang.org/x/tools v0.1.8-0.20211022200916-316ba0b74098 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	golang.zx2c4.com/go118/netip v0.0.0-20211111135330-a4a02eeacf9d // indirect
-	golang.zx2c4.com/wintun v0.0.0-20211104114900-415007cec224 // indirect
-	golang.zx2c4.com/wireguard v0.0.0-20211209221555-9c9e7e272434 // indirect
 	google.golang.org/genproto v0.0.0-20210722135532-667f2b7c528f // indirect
 	google.golang.org/grpc v1.46.0 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
-	gvisor.dev/gvisor v0.0.0 // indirect
 	inet.af/netaddr v0.0.0-20211027220019-c74959edd3b6 // indirect
 )
