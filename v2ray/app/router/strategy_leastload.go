@@ -143,7 +143,6 @@ func (l *LeastLoadStrategy) getNodes(candidates []string, maxRTT time.Duration) 
 		}))
 	}
 
-	var result proto.Message
 	if l.settings.ObserverTag == "" {
 		observeResult, err := l.observer.GetObservation(l.ctx)
 		if err != nil {
@@ -159,8 +158,6 @@ func (l *LeastLoadStrategy) getNodes(candidates []string, maxRTT time.Duration) 
 		}
 		result = observeResult
 	}
-
-	outboundlist := outboundList(candidates)
 
 	var ret []*node
 
