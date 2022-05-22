@@ -6,13 +6,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/golang/protobuf/proto"
-
 	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/observatory"
 	"github.com/v2fly/v2ray-core/v5/common"
 	"github.com/v2fly/v2ray-core/v5/common/dice"
-	"github.com/v2fly/v2ray-core/v5/features"
 	"github.com/v2fly/v2ray-core/v5/features/extension"
 )
 
@@ -144,50 +140,7 @@ func (l *LeastLoadStrategy) getNodes(candidates []string, maxRTT time.Duration) 
 		}))
 	}
 
-	var result proto.Message
-	if l.settings.ObserverTag == "" {
-		observeResult, err := l.observer.GetObservation(l.ctx)
-		if err != nil {
-			newError("cannot get observation").Base(err).WriteToLog()
-			return make([]*node, 0)
-		}
-		result = observeResult
-	} else {
-		observeResult, err := common.Must2(l.observer.(features.TaggedFeatures).GetFeaturesByTag(l.settings.ObserverTag)).(extension.Observatory).GetObservation(l.ctx)
-		if err != nil {
-			newError("cannot get observation").Base(err).WriteToLog()
-			return make([]*node, 0)
-		}
-		result = observeResult
-	}
-
-	results := result.(*observatory.ObservationResult)
-
-	outboundlist := outboundList(candidates)
-
 	var ret []*node
-
-	for _, v := range results.Status {
-		if v.Alive && (v.Delay < maxRTT.Milliseconds() || maxRTT == 0) && outboundlist.contains(v.OutboundTag) {
-			record := &node{
-				Tag:              v.OutboundTag,
-				CountAll:         1,
-				CountFail:        1,
-				RTTAverage:       time.Duration(v.Delay) * time.Millisecond,
-				RTTDeviation:     time.Duration(v.Delay) * time.Millisecond,
-				RTTDeviationCost: time.Duration(l.costs.Apply(v.OutboundTag, float64(time.Duration(v.Delay)*time.Millisecond))),
-			}
-
-			if v.HealthPing != nil {
-				record.RTTAverage = time.Duration(v.HealthPing.Average)
-				record.RTTDeviation = time.Duration(v.HealthPing.Deviation)
-				record.RTTDeviationCost = time.Duration(l.costs.Apply(v.OutboundTag, float64(v.HealthPing.Deviation)))
-				record.CountAll = int(v.HealthPing.All)
-				record.CountFail = int(v.HealthPing.Fail)
-			}
-			ret = append(ret, record)
-		}
-	}
 
 	leastloadSort(ret)
 	return ret
