@@ -35,7 +35,7 @@ jobs:
           ./run init action library
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: app:assembleOssDebug
+          arguments: app:assembleOssDebug -Dorg.gradle.daemon=false
           cache-disabled: true
       - name: prepare
         run: |
