@@ -2,8 +2,6 @@ module libcore
 
 go 1.18
 
-replace gvisor.dev/gvisor => github.com/sagernet/gvisor v0.0.0-20220213143053-df431bee78e3
-
 replace github.com/v2fly/v2ray-core/v5 v5.0.0 => ../v2ray
 
 require (
