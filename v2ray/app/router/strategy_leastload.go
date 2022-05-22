@@ -160,33 +160,9 @@ func (l *LeastLoadStrategy) getNodes(candidates []string, maxRTT time.Duration) 
 		result = observeResult
 	}
 
-	results := result.(*observatory.ObservationResult)
-
 	outboundlist := outboundList(candidates)
 
 	var ret []*node
-
-	for _, v := range results.Status {
-		if v.Alive && (v.Delay < maxRTT.Milliseconds() || maxRTT == 0) && outboundlist.contains(v.OutboundTag) {
-			record := &node{
-				Tag:              v.OutboundTag,
-				CountAll:         1,
-				CountFail:        1,
-				RTTAverage:       time.Duration(v.Delay) * time.Millisecond,
-				RTTDeviation:     time.Duration(v.Delay) * time.Millisecond,
-				RTTDeviationCost: time.Duration(l.costs.Apply(v.OutboundTag, float64(time.Duration(v.Delay)*time.Millisecond))),
-			}
-
-			if v.HealthPing != nil {
-				record.RTTAverage = time.Duration(v.HealthPing.Average)
-				record.RTTDeviation = time.Duration(v.HealthPing.Deviation)
-				record.RTTDeviationCost = time.Duration(l.costs.Apply(v.OutboundTag, float64(v.HealthPing.Deviation)))
-				record.CountAll = int(v.HealthPing.All)
-				record.CountFail = int(v.HealthPing.Fail)
-			}
-			ret = append(ret, record)
-		}
-	}
 
 	leastloadSort(ret)
 	return ret
