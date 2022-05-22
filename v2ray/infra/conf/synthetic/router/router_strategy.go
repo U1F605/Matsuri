@@ -3,7 +3,6 @@ package router
 import (
 	"github.com/golang/protobuf/proto"
 
-	"github.com/v2fly/v2ray-core/v5/app/observatory/burst"
 	"github.com/v2fly/v2ray-core/v5/app/router"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/duration"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/loader"
@@ -49,16 +48,6 @@ type HealthCheckSettings struct {
 	Interval      duration.Duration `json:"interval"`
 	SamplingCount int               `json:"sampling"`
 	Timeout       duration.Duration `json:"timeout"`
-}
-
-func (h HealthCheckSettings) Build() (proto.Message, error) {
-	return &burst.HealthPingConfig{
-		Destination:   h.Destination,
-		Connectivity:  h.Connectivity,
-		Interval:      int64(h.Interval),
-		Timeout:       int64(h.Timeout),
-		SamplingCount: int32(h.SamplingCount),
-	}, nil
 }
 
 // Build implements Buildable.
