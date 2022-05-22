@@ -50,16 +50,6 @@ type HealthCheckSettings struct {
 	Timeout       duration.Duration `json:"timeout"`
 }
 
-func (h HealthCheckSettings) Build() (proto.Message, error) {
-	return &burst.HealthPingConfig{
-		Destination:   h.Destination,
-		Connectivity:  h.Connectivity,
-		Interval:      int64(h.Interval),
-		Timeout:       int64(h.Timeout),
-		SamplingCount: int32(h.SamplingCount),
-	}, nil
-}
-
 // Build implements Buildable.
 func (v *strategyLeastLoadConfig) Build() (proto.Message, error) {
 	config := &router.StrategyLeastLoadConfig{}
