@@ -24,11 +24,9 @@ jobs:
           go install -v golang.org/x/mobile/cmd/gobind@latest
           gomobile init
           cd libcore/
-          gomobile bind -v -trimpath -ldflags='-s -w' . || exit 1
-          proj=../app/libs
-          mkdir -p $proj
-          cp -f libcore.aar $proj
-          echo ">> install $(realpath $proj)/libcore.aar"
+          gomobile bind -v -trimpath -ldflags='-s -w' .
+          mkdir -p ../app/libs
+          cp -f libcore.aar ../app/libs
       - name: Debug build
         run: |
           chmod +x * -R
