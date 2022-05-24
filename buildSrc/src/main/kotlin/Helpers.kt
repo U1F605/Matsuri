@@ -262,32 +262,6 @@ fun Project.setupAppCommon() {
                 getByName("debug").signingConfig = key
             }
         }
-        val calculateTaskName = "calculate${requireFlavor()}APKsSHA256"
-        (this as? AbstractAppExtension)?.apply {
-            tasks.register(calculateTaskName) {
-                val githubEnv = File(System.getenv("GITHUB_ENV") ?: "this-file-does-not-exist")
-
-                doLast {
-                    applicationVariants.all {
-                        if (name.equals(requireFlavor(), ignoreCase = true)) outputs.all {
-                            if (outputFile.isFile) {
-                                val sha256 = sha256Hex(outputFile.readBytes())
-                                val sum = File(
-                                    outputFile.parentFile,
-                                    outputFile.nameWithoutExtension + ".sha256sum.txt"
-                                )
-                                sum.writeText(sha256)
-                            }
-                        }
-                    }
-                }
-                dependsOn("package${requireFlavor()}")
-            }
-            val assemble = "assemble${requireFlavor()}"
-            tasks.whenTaskAdded {
-                if (name == assemble) dependsOn(calculateTaskName)
-            }
-        }
     }
 }
 
