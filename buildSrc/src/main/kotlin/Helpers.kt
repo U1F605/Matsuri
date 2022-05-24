@@ -141,7 +141,7 @@ fun Project.setupCommon() {
                 getByName("debug") {
                     applicationIdSuffix = "debug"
                     debuggable(false)
-                    jniDebuggable(true)
+                    jniDebuggable(false)
                 }
             }
             applicationVariants.forEach { variant ->
