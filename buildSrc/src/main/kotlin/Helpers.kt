@@ -140,7 +140,7 @@ fun Project.setupCommon() {
                 }
                 getByName("debug") {
                     applicationIdSuffix = "debug"
-                    debuggable(true)
+                    debuggable(false)
                     jniDebuggable(true)
                 }
             }
