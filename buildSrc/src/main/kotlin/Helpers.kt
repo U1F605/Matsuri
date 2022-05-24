@@ -277,20 +277,6 @@ fun Project.setupAppCommon() {
                                     outputFile.nameWithoutExtension + ".sha256sum.txt"
                                 )
                                 sum.writeText(sha256)
-                                if (githubEnv.isFile) when {
-                                    outputFile.name.contains("-arm64") -> {
-                                        githubEnv.appendText("SUM_ARM64=${sum.absolutePath}\n")
-                                        githubEnv.appendText("SHA256_ARM64=$sha256\n")
-                                    }
-                                    outputFile.name.contains("-armeabi") -> {
-                                        githubEnv.appendText("SUM_ARM=${sum.absolutePath}\n")
-                                        githubEnv.appendText("SHA256_ARM=$sha256\n")
-                                    }
-                                    outputFile.name.contains("-x86_64") -> {
-                                        githubEnv.appendText("SUM_X64=${sum.absolutePath}\n")
-                                        githubEnv.appendText("SHA256_X64=$sha256\n")
-                                    }
-                                }
                             }
                         }
                     }
