@@ -137,11 +137,6 @@ fun Project.setupCommon() {
             buildTypes {
                 getByName("release") {
                     isShrinkResources = true
-                    // TODO nkmr
-                    if (System.getenv("nkmr_minify") == "0") {
-                        isShrinkResources = false
-                        isMinifyEnabled = false
-                    }
                 }
                 getByName("debug") {
                     applicationIdSuffix = "debug"
