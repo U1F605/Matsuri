@@ -139,7 +139,6 @@ fun Project.setupCommon() {
                     isShrinkResources = true
                 }
                 getByName("debug") {
-                    applicationIdSuffix = "debug"
                     debuggable(false)
                     jniDebuggable(false)
                 }
