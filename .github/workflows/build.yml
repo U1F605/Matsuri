@@ -23,8 +23,7 @@ jobs:
           go install -v golang.org/x/mobile/cmd/gomobile@latest
           go install -v golang.org/x/mobile/cmd/gobind@latest
           gomobile init
-          cd libcore/
-          gomobile bind -v -trimpath -ldflags='-s -w' .
+          gomobile bind -v -trimpath -ldflags='-s -w' ./libcore
           mkdir -p ../app/libs
           cp -f libcore.aar ../app/libs
       - name: Debug build
