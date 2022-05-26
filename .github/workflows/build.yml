@@ -27,8 +27,6 @@ jobs:
           gomobile bind -v -trimpath -ldflags='-s -w' .
           mkdir -p ../app/libs
           cp -f libcore.aar ../app/libs
-      - name: Debug build
-        run: |
           chmod +x * -R
           ./run init action library
           grep -rni "blackhole"
