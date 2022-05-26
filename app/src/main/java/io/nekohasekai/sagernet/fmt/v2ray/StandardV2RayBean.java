@@ -78,7 +78,7 @@ public abstract class StandardV2RayBean extends AbstractBean {
     public String path;
 
     /**
-     * mKCP 的伪装头部类型。当前可选值有 none / srtp / utp / wechat-video / dtls / wireguard。
+     * mKCP 的伪装头部类型。当前可选值有 none / srtp / utp / dtls /
      * <p>
      * 省略时默认值为 none，即不使用伪装头部，但不可以为空字符串。
      * -----------------------------------
