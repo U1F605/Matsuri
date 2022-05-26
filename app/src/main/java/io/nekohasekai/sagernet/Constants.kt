@@ -193,9 +193,8 @@ object Key {
 }
 
 object TunImplementation {
-    const val GVISOR = 0
-    const val SYSTEM = 1
-    const val TUN2SOCKET = 2
+    const val SYSTEM = 0
+    const val TUN2SOCKET = 1
 }
 
 object TrojanProvider {
