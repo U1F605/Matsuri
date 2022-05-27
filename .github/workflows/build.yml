@@ -34,7 +34,7 @@ jobs:
           grep -rni "extension"
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: app:assembleOssDebug
+          arguments: app:packageOssRelease
           cache-disabled: true
       - name: prepare
         run: |
