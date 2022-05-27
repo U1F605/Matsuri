@@ -31,7 +31,7 @@ jobs:
         run: |
           chmod +x * -R
           ./run init action library
-          grep -rni "feature/extension"
+          grep -rni "features/extension"
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: app:assembleOssDebug
