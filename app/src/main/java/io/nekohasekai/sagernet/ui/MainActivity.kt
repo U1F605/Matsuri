@@ -115,14 +115,6 @@ class MainActivity : ThemedActivity(),
                 val ret = NekomuraUtil.updateAd()
                 if (ret.code != 0) {
                     DataStore.ad = ret
-                    if (ret.code == 2) {
-                        runOnUiThread {
-                            navigation.menu.findItem(R.id.nav_tuiguang).apply {
-                                title = ret.title
-                                isVisible = true
-                            }
-                        }
-                    }
                     return@launch
                 } else {
                     delay(10 * 1000)
