@@ -316,7 +316,6 @@ type Config struct {
 	Stats            *StatsConfig            `json:"stats"`
 	Reverse          *ReverseConfig          `json:"reverse"`
 	FakeDNS          *FakeDNSConfig          `json:"fakeDns"`
-	BrowserForwarder *BrowserForwarderConfig `json:"browserForwarder"`
 
 	Services map[string]*json.RawMessage `json:"services"`
 }
@@ -435,14 +434,6 @@ func (c *Config) Build() (*core.Config, error) {
 
 	if c.FakeDNS != nil {
 		r, err := c.FakeDNS.Build()
-		if err != nil {
-			return nil, err
-		}
-		config.App = append(config.App, serial.ToTypedMessage(r))
-	}
-
-	if c.BrowserForwarder != nil {
-		r, err := c.BrowserForwarder.Build()
 		if err != nil {
 			return nil, err
 		}
