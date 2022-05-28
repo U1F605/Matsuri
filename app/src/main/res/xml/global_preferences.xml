@@ -122,6 +122,7 @@
             app:key="trafficSniffing"
             app:title="@string/traffic_sniffing" />
         <SwitchPreference
+            app:defaultValue="true"
             app:icon="@drawable/baseline_construction_24"
             app:key="destinationOverride"
             app:summary="@string/destination_override_summary"
