@@ -165,8 +165,6 @@
     <string name="domain_strategy">Domain Resolution Strategy</string>
     <string name="traffic_sniffing">Enable Traffic Sniffing</string>
     <string name="enable_mux">Enable Multiplexer</string>
-    <string name="mux_sum">Mux is designed to reduce TCP handshake latency, not to increase connection throughput. Using Mux to watch videos, download or speed test is usually counter productive</string>
-    <string name="mux_concurrency">Mux Concurrent Connections</string>
     <string name="mux_for_all">Enable Mux for all possible supported protocols</string>
     <string name="mux_for_all_sum">If the server does not support Mux, we will not be able to connect to it.</string>
     <string name="tcp_keep_alive_interval">TCP keep active packet delivery interval</string>
