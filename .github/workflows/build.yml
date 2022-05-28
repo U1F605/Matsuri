@@ -31,7 +31,7 @@ jobs:
         run: |
           chmod +x * -R
           ./run init action library
-          grep -rni "app/browserforwarder"
+          grep -rni "protocol_settings"
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: app:assembleOssDebug
