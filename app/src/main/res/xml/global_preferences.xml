@@ -128,6 +128,7 @@
             app:summary="@string/destination_override_summary"
             app:title="@string/destination_override" />
         <SwitchPreference
+            app:defaultValue="true"
             app:icon="@drawable/baseline_wrap_text_24"
             app:key="resolveDestination"
             app:summary="@string/resolve_destination_summary"
@@ -158,20 +159,6 @@
             app:icon="@drawable/ic_baseline_nfc_24"
             app:key="providerTrojan"
             app:title="@string/trojan_provider"
-            app:useSimpleSummaryProvider="true" />
-        <MultiSelectListPreference
-            app:icon="@drawable/ic_baseline_compare_arrows_24"
-            app:entries="@array/mux_select_init"
-            app:entryValues="@array/mux_select_init"
-            app:defaultValue="@array/mux_select_init"
-            app:key="mux"
-            app:summary="@string/mux_sum"
-            app:title="@string/enable_mux" />
-        <EditTextPreference
-            app:defaultValue="8"
-            app:icon="@drawable/ic_baseline_low_priority_24"
-            app:key="muxConcurrency"
-            app:title="@string/mux_concurrency"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
