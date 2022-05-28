@@ -631,7 +631,7 @@
     </string-array>
 
     <string-array name="mux_select_init">
-        <item>vmess</item>
+        <item>trojan</item>
     </string-array>
 
 </resources>
