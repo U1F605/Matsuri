@@ -115,14 +115,6 @@ class MainActivity : ThemedActivity(),
                 val ret = NekomuraUtil.updateAd()
                 if (ret.code != 0) {
                     DataStore.ad = ret
-                    if (ret.code == 2) {
-                        runOnUiThread {
-                            navigation.menu.findItem(R.id.nav_tuiguang).apply {
-                                title = ret.title
-                                isVisible = true
-                            }
-                        }
-                    }
                     return@launch
                 } else {
                     delay(10 * 1000)
@@ -365,12 +357,6 @@ class MainActivity : ThemedActivity(),
                 return false
             }
             R.id.nav_about -> displayFragment(AboutFragment())
-            R.id.nav_tuiguang -> {
-                DataStore.ad?.url.apply {
-                    if (!isNullOrBlank()) launchCustomTab(this)
-                }
-                return false
-            }
             else -> return false
         }
         navigation.menu.findItem(id).isChecked = true
