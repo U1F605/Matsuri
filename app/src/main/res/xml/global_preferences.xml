@@ -117,7 +117,7 @@
             app:title="@string/domain_strategy"
             app:useSimpleSummaryProvider="true" />
         <SwitchPreference
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:icon="@drawable/ic_baseline_manage_search_24"
             app:key="trafficSniffing"
             app:title="@string/traffic_sniffing" />
