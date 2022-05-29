@@ -31,7 +31,7 @@ jobs:
         run: |
           chmod +x * -R
           ./run init action library
-          grep -rni "protocol_settings"
+          grep -rni "domainsocket"
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: app:assembleOssDebug
