@@ -177,8 +177,6 @@
     <string name="traffic_sniffing">启用流量探测</string>
     <string name="disable">禁用</string>
     <string name="cag_misc">杂项</string>
-    <string name="enable_mux">启用多路复用</string>
-    <string name="mux_concurrency">复用最大并发</string>
     <string name="ws_host">WebSocket 主机</string>
     <string name="ws_path">WebSocket 路径</string>
     <string name="http_host">HTTP 主机</string>
