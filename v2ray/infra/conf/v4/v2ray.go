@@ -305,7 +305,6 @@ type Config struct {
 	OutboundDetours []OutboundDetourConfig `json:"outboundDetour"`
 
 	LogConfig        *log.LogConfig          `json:"log"`
-	RouterConfig     *router.RouterConfig    `json:"routing"`
 	DNSConfig        *dns.DNSConfig          `json:"dns"`
 	InboundConfigs   []InboundDetourConfig   `json:"inbounds"`
 	OutboundConfigs  []OutboundDetourConfig  `json:"outbounds"`
@@ -398,14 +397,6 @@ func (c *Config) Build() (*core.Config, error) {
 	// let logger module be the first App to start,
 	// so that other modules could print log during initiating
 	config.App = append([]*anypb.Any{logConfMsg}, config.App...)
-
-	if c.RouterConfig != nil {
-		routerConfig, err := c.RouterConfig.Build()
-		if err != nil {
-			return nil, err
-		}
-		config.App = append(config.App, serial.ToTypedMessage(routerConfig))
-	}
 
 	if c.DNSConfig != nil {
 		dnsApp, err := c.DNSConfig.Build()
