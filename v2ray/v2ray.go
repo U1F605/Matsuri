@@ -96,11 +96,6 @@ type Instance struct {
 
 func AddInboundHandler(server *Instance, config *InboundHandlerConfig) error {
 	inboundManager := server.GetFeature(inbound.ManagerType()).(inbound.Manager)
-	proxyEnv := server.env.ProxyEnvironment("i" + config.Tag)
-	rawHandler, err := CreateObjectWithEnvironment(server, config, proxyEnv)
-	if err != nil {
-		return err
-	}
 	handler, ok := rawHandler.(inbound.Handler)
 	if !ok {
 		return newError("not an InboundHandler")
@@ -123,11 +118,6 @@ func addInboundHandlers(server *Instance, configs []*InboundHandlerConfig) error
 
 func AddOutboundHandler(server *Instance, config *OutboundHandlerConfig) error {
 	outboundManager := server.GetFeature(outbound.ManagerType()).(outbound.Manager)
-	proxyEnv := server.env.ProxyEnvironment("o" + config.Tag)
-	rawHandler, err := CreateObjectWithEnvironment(server, config, proxyEnv)
-	if err != nil {
-		return err
-	}
 	handler, ok := rawHandler.(outbound.Handler)
 	if !ok {
 		return newError("not an OutboundHandler")
@@ -194,11 +184,6 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 			return true, err
 		}
 		key := appSettings.TypeUrl
-		appEnv := server.env.AppEnvironment(key)
-		obj, err := CreateObjectWithEnvironment(server, settings, appEnv)
-		if err != nil {
-			return true, err
-		}
 		if feature, ok := obj.(features.Feature); ok {
 			if err := server.AddFeature(feature); err != nil {
 				return true, err
