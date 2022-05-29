@@ -90,7 +90,6 @@ type Instance struct {
 	features           []features.Feature
 	featureResolutions []resolution
 	running            bool
-	env                environment.RootEnvironment
 
 	ctx context.Context
 }
@@ -188,8 +187,6 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 	if err := config.Transport.Apply(); err != nil {
 		return true, err
 	}
-
-	server.env = environment.NewRootEnvImpl(server.ctx, transientstorageimpl.NewScopedTransientStorageImpl())
 
 	for _, appSettings := range config.App {
 		settings, err := serial.GetInstanceOf(appSettings)
