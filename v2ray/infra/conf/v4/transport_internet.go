@@ -13,7 +13,6 @@ import (
 	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/socketcfg"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/tlscfg"
 	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/domainsocket"
 	httpheader "github.com/v2fly/v2ray-core/v5/transport/internet/headers/http"
 	"github.com/v2fly/v2ray-core/v5/transport/internet/http"
 	"github.com/v2fly/v2ray-core/v5/transport/internet/kcp"
@@ -243,21 +242,6 @@ func (c *QUICConfig) Build() (proto.Message, error) {
 	return config, nil
 }
 
-type DomainSocketConfig struct {
-	Path     string `json:"path"`
-	Abstract bool   `json:"abstract"`
-	Padding  bool   `json:"padding"`
-}
-
-// Build implements Buildable.
-func (c *DomainSocketConfig) Build() (proto.Message, error) {
-	return &domainsocket.Config{
-		Path:     c.Path,
-		Abstract: c.Abstract,
-		Padding:  c.Padding,
-	}, nil
-}
-
 type TransportProtocol string
 
 // Build implements Buildable.
@@ -271,8 +255,6 @@ func (p TransportProtocol) Build() (string, error) {
 		return "websocket", nil
 	case "h2", "http":
 		return "http", nil
-	case "ds", "domainsocket":
-		return "domainsocket", nil
 	case "quic":
 		return "quic", nil
 	case "gun", "grpc":
@@ -290,7 +272,6 @@ type StreamConfig struct {
 	KCPSettings    *KCPConfig              `json:"kcpSettings"`
 	WSSettings     *WebSocketConfig        `json:"wsSettings"`
 	HTTPSettings   *HTTPConfig             `json:"httpSettings"`
-	DSSettings     *DomainSocketConfig     `json:"dsSettings"`
 	QUICSettings   *QUICConfig             `json:"quicSettings"`
 	GunSettings    *GunConfig              `json:"gunSettings"`
 	GRPCSettings   *GunConfig              `json:"grpcSettings"`
@@ -360,16 +341,6 @@ func (c *StreamConfig) Build() (*internet.StreamConfig, error) {
 		config.TransportSettings = append(config.TransportSettings, &internet.TransportConfig{
 			ProtocolName: "http",
 			Settings:     serial.ToTypedMessage(ts),
-		})
-	}
-	if c.DSSettings != nil {
-		ds, err := c.DSSettings.Build()
-		if err != nil {
-			return nil, newError("Failed to build DomainSocket config.").Base(err)
-		}
-		config.TransportSettings = append(config.TransportSettings, &internet.TransportConfig{
-			ProtocolName: "domainsocket",
-			Settings:     serial.ToTypedMessage(ds),
 		})
 	}
 	if c.QUICSettings != nil {
