@@ -59,28 +59,6 @@ func dialWebsocket(ctx context.Context, dest net.Destination, streamSettings *in
 	}
 	uri := protocol + "://" + host + wsSettings.GetNormalizedPath()
 
-	if wsSettings.UseBrowserForwarding {
-		var forwarder extension.BrowserForwarder
-		err := core.RequireFeatures(ctx, func(Forwarder extension.BrowserForwarder) {
-			forwarder = Forwarder
-		})
-		if err != nil {
-			return nil, newError("cannot find browser forwarder service").Base(err)
-		}
-		if wsSettings.MaxEarlyData != 0 {
-			return newRelayedConnectionWithDelayedDial(&dialerWithEarlyDataRelayed{
-				forwarder: forwarder,
-				uriBase:   uri,
-				config:    wsSettings,
-			}), nil
-		}
-		conn, err := forwarder.DialWebsocket(uri, nil)
-		if err != nil {
-			return nil, newError("cannot dial with browser forwarder service").Base(err)
-		}
-		return newRelayedConnection(conn), nil
-	}
-
 	if wsSettings.MaxEarlyData != 0 {
 		return newConnectionWithDelayedDial(&dialerWithEarlyData{
 			dialer:  dialer,
