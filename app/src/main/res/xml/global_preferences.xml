@@ -160,20 +160,6 @@
             app:key="providerTrojan"
             app:title="@string/trojan_provider"
             app:useSimpleSummaryProvider="true" />
-        <MultiSelectListPreference
-            app:icon="@drawable/ic_baseline_compare_arrows_24"
-            app:entries="@array/mux_select_init"
-            app:entryValues="@array/mux_select_init"
-            app:defaultValue="@array/mux_select_init"
-            app:key="mux"
-            app:summary="@string/mux_sum"
-            app:title="@string/enable_mux" />
-        <EditTextPreference
-            app:defaultValue="8"
-            app:icon="@drawable/ic_baseline_low_priority_24"
-            app:key="muxConcurrency"
-            app:title="@string/mux_concurrency"
-            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/cag_dns">
