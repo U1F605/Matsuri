@@ -18,7 +18,6 @@ import (
 	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/sniffer"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/synthetic/dns"
 	"github.com/v2fly/v2ray-core/v5/infra/conf/synthetic/log"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/synthetic/router"
 )
 
 var (
