@@ -23,7 +23,6 @@ import (
 	_ "github.com/v2fly/v2ray-core/v5/proxy/trojan"
 	_ "github.com/v2fly/v2ray-core/v5/proxy/vmess/inbound"
 	_ "github.com/v2fly/v2ray-core/v5/proxy/vmess/outbound"
-	_ "github.com/v2fly/v2ray-core/v5/transport/internet/domainsocket"
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/grpc"
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/http"
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/kcp"

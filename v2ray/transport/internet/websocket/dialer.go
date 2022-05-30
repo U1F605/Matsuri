@@ -10,7 +10,6 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	core "github.com/v2fly/v2ray-core/v5"
 	"github.com/v2fly/v2ray-core/v5/common"
 	"github.com/v2fly/v2ray-core/v5/common/net"
 	"github.com/v2fly/v2ray-core/v5/common/session"
@@ -58,28 +57,6 @@ func dialWebsocket(ctx context.Context, dest net.Destination, streamSettings *in
 		host = dest.Address.String()
 	}
 	uri := protocol + "://" + host + wsSettings.GetNormalizedPath()
-
-	if wsSettings.UseBrowserForwarding {
-		var forwarder extension.BrowserForwarder
-		err := core.RequireFeatures(ctx, func(Forwarder extension.BrowserForwarder) {
-			forwarder = Forwarder
-		})
-		if err != nil {
-			return nil, newError("cannot find browser forwarder service").Base(err)
-		}
-		if wsSettings.MaxEarlyData != 0 {
-			return newRelayedConnectionWithDelayedDial(&dialerWithEarlyDataRelayed{
-				forwarder: forwarder,
-				uriBase:   uri,
-				config:    wsSettings,
-			}), nil
-		}
-		conn, err := forwarder.DialWebsocket(uri, nil)
-		if err != nil {
-			return nil, newError("cannot dial with browser forwarder service").Base(err)
-		}
-		return newRelayedConnection(conn), nil
-	}
 
 	if wsSettings.MaxEarlyData != 0 {
 		return newConnectionWithDelayedDial(&dialerWithEarlyData{
