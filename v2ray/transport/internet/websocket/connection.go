@@ -56,23 +56,6 @@ func newConnectionWithDelayedDial(dialer DelayedDialer) *connection {
 	}
 }
 
-func newRelayedConnectionWithDelayedDial(dialer DelayedDialerForwarded) *connectionForwarder {
-	delayedDialContext, cancelFunc := context.WithCancel(context.Background())
-	return &connectionForwarder{
-		shouldWait:        true,
-		delayedDialFinish: delayedDialContext,
-		finishedDial:      cancelFunc,
-		dialer:            dialer,
-	}
-}
-
-func newRelayedConnection(conn io.ReadWriteCloser) *connectionForwarder {
-	return &connectionForwarder{
-		ReadWriteCloser: conn,
-		shouldWait:      false,
-	}
-}
-
 // Read implements net.Conn.Read()
 func (c *connection) Read(b []byte) (int, error) {
 	for {
