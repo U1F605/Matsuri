@@ -7,7 +7,6 @@ import (
 
 	"github.com/v2fly/v2ray-core/v5/common"
 	"github.com/v2fly/v2ray-core/v5/common/environment"
-	"github.com/v2fly/v2ray-core/v5/common/environment/transientstorageimpl"
 	"github.com/v2fly/v2ray-core/v5/common/serial"
 	"github.com/v2fly/v2ray-core/v5/features"
 	"github.com/v2fly/v2ray-core/v5/features/dns"
@@ -192,7 +191,6 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 	}
 
 	for _, appSettings := range config.App {
-		settings, err := serial.GetInstanceOf(appSettings)
 		if err != nil {
 			return true, err
 		}
