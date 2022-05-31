@@ -196,8 +196,6 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 		if err != nil {
 			return true, err
 		}
-		key := appSettings.TypeUrl
-		obj, err := CreateObjectWithEnvironment(server, settings, appEnv)
 		if err != nil {
 			return true, err
 		}
