@@ -199,11 +199,6 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 		if err != nil {
 			return true, err
 		}
-		if feature, ok := obj.(features.Feature); ok {
-			if err := server.AddFeature(feature); err != nil {
-				return true, err
-			}
-		}
 	}
 
 	essentialFeatures := []struct {
