@@ -5,8 +5,6 @@ type AppEnvironmentCapabilitySet interface {
 	SystemNetworkCapabilitySet
 	InstanceNetworkCapabilitySet
 	FileSystemCapabilitySet
-	PersistentStorageCapabilitySet
-	TransientStorageCapabilitySet
 }
 
 type AppEnvironment interface {
