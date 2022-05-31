@@ -3,7 +3,6 @@ package environment
 type ProxyEnvironmentCapabilitySet interface {
 	BaseEnvironmentCapabilitySet
 	InstanceNetworkCapabilitySet
-	TransientStorageCapabilitySet
 }
 
 // TODO Add NarrowScopeToConnection
