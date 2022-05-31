@@ -191,15 +191,12 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 		return true, err
 	}
 
-	server.env = environment.NewRootEnvImpl(server.ctx, transientstorageimpl.NewScopedTransientStorageImpl())
-
 	for _, appSettings := range config.App {
 		settings, err := serial.GetInstanceOf(appSettings)
 		if err != nil {
 			return true, err
 		}
 		key := appSettings.TypeUrl
-		appEnv := server.env.AppEnvironment(key)
 		obj, err := CreateObjectWithEnvironment(server, settings, appEnv)
 		if err != nil {
 			return true, err
