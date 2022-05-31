@@ -190,15 +190,6 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 		return true, err
 	}
 
-	for _, appSettings := range config.App {
-		if err != nil {
-			return true, err
-		}
-		if err != nil {
-			return true, err
-		}
-	}
-
 	essentialFeatures := []struct {
 		Type     interface{}
 		Instance features.Feature
