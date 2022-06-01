@@ -312,7 +312,6 @@ type Config struct {
 	Policy           *PolicyConfig           `json:"policy"`
 	API              *APIConfig              `json:"api"`
 	Stats            *StatsConfig            `json:"stats"`
-	FakeDNS          *FakeDNSConfig          `json:"fakeDns"`
 
 	Services map[string]*json.RawMessage `json:"services"`
 }
@@ -408,14 +407,6 @@ func (c *Config) Build() (*core.Config, error) {
 			return nil, err
 		}
 		config.App = append(config.App, serial.ToTypedMessage(pc))
-	}
-
-	if c.FakeDNS != nil {
-		r, err := c.FakeDNS.Build()
-		if err != nil {
-			return nil, err
-		}
-		config.App = append(config.App, serial.ToTypedMessage(r))
 	}
 
 	if msg, err := c.BuildServices(c.Services); err != nil {
