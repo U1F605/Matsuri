@@ -8,7 +8,6 @@ import (
 	_ "github.com/v2fly/v2ray-core/v5/app/dns/fakedns"
 	_ "github.com/v2fly/v2ray-core/v5/app/log"
 	_ "github.com/v2fly/v2ray-core/v5/app/policy"
-	_ "github.com/v2fly/v2ray-core/v5/app/reverse"
 	_ "github.com/v2fly/v2ray-core/v5/app/router"
 	_ "github.com/v2fly/v2ray-core/v5/app/stats"
 	_ "github.com/v2fly/v2ray-core/v5/transport/internet/tagged/taggedimpl"
