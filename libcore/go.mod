@@ -6,7 +6,7 @@ replace github.com/v2fly/v2ray-core/v5 v5.0.6 => ../v2ray
 
 require (
 	github.com/Dreamacro/clash v1.10.6
-	github.com/miekg/dns v1.1.49
+	github.com/miekg/dns v1.1.50
 	github.com/sagernet/libping v0.1.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/ulikunitz/xz v0.5.10
