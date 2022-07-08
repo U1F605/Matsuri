@@ -5,15 +5,15 @@ go 1.18
 replace github.com/v2fly/v2ray-core/v5 v5.0.6 => ../v2ray
 
 require (
-	github.com/Dreamacro/clash v1.10.6
-	github.com/miekg/dns v1.1.49
+	github.com/Dreamacro/clash v1.11.4
+	github.com/miekg/dns v1.1.50
 	github.com/sagernet/libping v0.1.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/ulikunitz/xz v0.5.10
 	github.com/v2fly/v2ray-core/v5 v5.0.6
 	go.uber.org/automaxprocs v1.5.1
 	golang.org/x/mobile v0.0.0-20220518205345-8578da9835fd
-	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a
+	golang.org/x/sys v0.0.0-20220704084225-05e143d24a9e
 )
 
 require (
@@ -45,9 +45,9 @@ require (
 	go.starlark.net v0.0.0-20220328144851-d1966c6b9fcd // indirect
 	go4.org/intern v0.0.0-20220301175310-a089fc204883 // indirect
 	go4.org/unsafe/assume-no-moving-gc v0.0.0-20211027215541-db492cf91b37 // indirect
-	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
+	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
-	golang.org/x/net v0.0.0-20220526153639-5463443f8c37 // indirect
+	golang.org/x/net v0.0.0-20220706163947-c90051bbdb60 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.10 // indirect
 	golang.org/x/xerrors v0.0.0-20220517211312-f3a8303e98df // indirect
