@@ -8,12 +8,12 @@ require (
 	github.com/Dreamacro/clash v1.10.6
 	github.com/miekg/dns v1.1.49
 	github.com/sagernet/libping v0.1.1
-	github.com/sirupsen/logrus v1.8.1
+	github.com/sirupsen/logrus v1.9.0
 	github.com/ulikunitz/xz v0.5.10
 	github.com/v2fly/v2ray-core/v5 v5.0.6
 	go.uber.org/automaxprocs v1.5.1
 	golang.org/x/mobile v0.0.0-20220518205345-8578da9835fd
-	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a
+	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8
 )
 
 require (
