@@ -9,7 +9,7 @@ require (
 	github.com/miekg/dns v1.1.49
 	github.com/sagernet/libping v0.1.1
 	github.com/sirupsen/logrus v1.8.1
-	github.com/ulikunitz/xz v0.5.10
+	github.com/ulikunitz/xz v0.5.11
 	github.com/v2fly/v2ray-core/v5 v5.0.6
 	go.uber.org/automaxprocs v1.5.1
 	golang.org/x/mobile v0.0.0-20220518205345-8578da9835fd
