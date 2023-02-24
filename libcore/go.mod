@@ -13,7 +13,7 @@ require (
 	github.com/v2fly/v2ray-core/v5 v5.0.6
 	go.uber.org/automaxprocs v1.5.1
 	golang.org/x/mobile v0.0.0-20220518205345-8578da9835fd
-	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a
+	golang.org/x/sys v0.5.0
 )
 
 require (
